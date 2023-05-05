@@ -18,6 +18,8 @@ pip install -r requirements.txt
 
 3. Set up a Twitch account and create a new application [here](https://dev.twitch.tv/console/apps/create) to get your `irc_token` and `client_id`.
 
+For more information on that, read [this file](./setup_bot.md)
+
 4. Go to `vars.py` file and add change the following variables:
 
 ```
