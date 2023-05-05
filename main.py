@@ -1,7 +1,5 @@
 from twitchio.ext import commands
-from datetime import datetime
 import asyncio
-import time
 import mfs
 from vars import *
 
