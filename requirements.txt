@@ -1,0 +1,17 @@
+twitchio==1.1.0
+python-dotenv==0.13.0
+websocket-client
+requests
+tls-client
+pypasser
+names
+colorama
+curl_cffi
+streamlit==1.21.0
+selenium
+fake-useragent
+twocaptcha
+https://github.com/AI-Yash/st-chat/archive/refs/pull/24/head.zip
+pydantic
+pymailtm
+gpt4free
