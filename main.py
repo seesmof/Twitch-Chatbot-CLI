@@ -31,10 +31,10 @@ async def event_message(ctx):
         return
 
     # Check if the message contains a bot nickname in it
-    letters = [f"@{CHANNEL}"]
+    letters = [f"@{GPT_BOT_NICK}"]
     if mfs.check_for_letters(ctx.content.lower(), letters):
         # Preprocess the input text
-        input_text = ctx.content.replace(f"@{CHANNEL}", "")
+        input_text = ctx.content.replace(f"@{GPT_BOT_NICK}", "")
         input_text = " ".join(input_text.split())
         output_text = "@" + ctx.author.name + ", "
 
