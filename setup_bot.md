@@ -2,6 +2,8 @@
 
 To get the bot working you need to have a Twitch account registered. Once you do, follow the instructions below and get all the necessary information to proceed and run the bot
 
+---
+
 ### 1. Get TMI token
 
 First, you need a TMI token. Considering you already have a Twitch account registered, just follow the link below, copy the token and paste it into a corresponding variable in `vars.py` file
