@@ -1,5 +1,4 @@
 twitchio==1.1.0
-python-dotenv==0.13.0
 websocket-client
 requests
 tls-client
