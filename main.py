@@ -1,53 +1,32 @@
 from twitchio.ext import commands
-import asyncio
-import mfs
 from vars import *
-
-# provide a channel, where you wanna run your bot, below
-CHANNEL = ""
-bot = commands.Bot(
-    irc_token=GPT_TMI_TOKEN,
-    client_id=GPT_CLIENT_ID,
-    nick=GPT_BOT_NICK,
-    prefix=BOT_PREFIX,
-    initial_channels=[CHANNEL]
-)
+from mfs import *
 
 
-@ bot.event
-async def event_ready():
-    # print message to console
-    print(f"{GPT_BOT_NICK} is online at {CHANNEL}!")
-    # write log message using mfs module
-    mfs.write_to_log(f"is online at {CHANNEL}!", GPT_BOT_NICK, CHANNEL)
+class Bot(commands.Bot):
+    def __init__(self):
+        # ! Replace CHANNEL with your wanted channel name. You can also add multiple channels, just separate them with a comma
+        super().__init__(token=GPT_TOKEN,
+                         prefix='!', initial_channels=[f'{CHANNEL}'])
+        self.lock = asyncio.Lock()
+
+    async def event_ready(self):
+        print(f'Logged in as | {self.nick}')
+        print(f'User id is | {self.user_id}')
+
+    async def event_message(self, message):
+        async with self.lock:
+            letters = [f"@{GPT_BOT_NICK}"]
+            if check_for_letters(message.content.lower(), letters) and message.author.name != f"{GPT_BOT_NICK}":
+                output_text = generate_ai_message(
+                    message.content, message.author.name)
+                output_text = split_long_gpt(output_text)
+                for substr in output_text:
+                    await message.channel.send(f"{substr}, @{message.author.name}")
+                    await asyncio.sleep(20)
+            write_to_log(message.content, message.author.name,
+                         message.channel.name)
 
 
-@ bot.event
-async def event_message(ctx):
-    # Check if the message is from the GPT bot, and if so, log the message and return
-    if ctx.author.name.lower() == GPT_BOT_NICK.lower():
-        print(f"\nBOT: {ctx.content}")
-        mfs.write_to_log(ctx.content, GPT_BOT_NICK, CHANNEL)
-        return
-
-    # Check if the message contains a bot nickname in it
-    letters = [f"@{GPT_BOT_NICK}"]
-    if mfs.check_for_letters(ctx.content.lower(), letters):
-        # Preprocess the input text
-        input_text = ctx.content.replace(f"@{GPT_BOT_NICK}", "")
-        input_text = " ".join(input_text.split())
-        output_text = "@" + ctx.author.name + ", "
-
-        # ATTENTION: If you want your messages to be generated in Ukrainian - change the line below to this:
-        # output_text += mfs.generate_ua(input_text)
-        # So, pretty much, just change the function to generate_ua
-        output_text += mfs.generate_en(input_text)
-
-        # Send the generated message in chunks
-        await mfs.send_split_gpt(ctx, output_text)
-
-    # Wait for 1 second before continuing
-    await asyncio.sleep(1)
-
-if __name__ == "__main__":
-    bot.run()
+bot = Bot()
+bot.run()
