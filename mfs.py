@@ -1,11 +1,14 @@
+from twitchio.ext import commands
+from datetime import datetime
 import openai
 import os
 import asyncio
+import time
+from vars import *
 import gpt4free
 from gpt4free import Provider
 from deep_translator import GoogleTranslator
-from vars import *
-from datetime import datetime
+from langdetect import detect
 
 
 #   <GENERATING MESSAGES>   #
@@ -34,8 +37,38 @@ def openai_generate(input_text, context):
 # If you either don't have an OpenAI API key or simply don't want to use it, you can just use the functions below, which I recommend
 # But if you do end up using the OpenAI API, make sure to change the corresponding function in main file
 
+def generate_ai_message(message, author):
+    print("\nGenerating a message...\n")
+    start_time = time.time()
 
-def generate_ua(input_text):
+    input_text = message.replace(f"@{GPT_BOT_NICK}", "")
+    input_text = " ".join(input_text.split())
+
+    output_text = ""  # declare the variable here
+
+    if detect(input_text) == "uk" or detect(input_text) == "ru":
+        print("Language is Ukrainian")
+        try:
+            print("Generating with GPT4Free")
+            output_text += gpt4free_ua(input_text)
+        except:
+            print(
+                f"\n{author} got an error while trying to generate message!\nPrompt: {message}\n")
+    else:
+        print("Language is English")
+        try:
+            print("Generating with GPT4Free")
+            output_text += gpt4free_en(input_text)
+        except:
+            print(
+                f"\n{author} got an error while trying to generate message!\nPrompt: {message}\n")
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\nGenerated in {elapsed_time:.2f} seconds")
+    return output_text
+
+
+def gpt4free_ua(input_text):
     input_prompt = GoogleTranslator(
         source='auto', target='en').translate(input_text)
     response = gpt4free.Completion.create(
@@ -45,12 +78,15 @@ def generate_ua(input_text):
     return response
 
 
-def generate_en(input_text):
+def gpt4free_en(input_text):
     input_prompt = GoogleTranslator(
         source='auto', target='en').translate(input_text)
     response = gpt4free.Completion.create(
         Provider.You, prompt=input_prompt)
     return response
+
+
+# Below are supplementary functions, just leave them as they are, unless you know what you're doing
 
 
 def split_long_gpt(input_string):
@@ -59,9 +95,6 @@ def split_long_gpt(input_string):
     substrings = [input_string[i * 475:(i + 1) * 475]
                   for i in range(num_substrings)]
     return substrings
-
-
-# Below are supplementary functions, just leave them as they are, unless you know what you're doing
 
 
 async def send_split_gpt(ctx, message):
@@ -80,14 +113,19 @@ def split_long_message(input_string):
 
 
 async def send_split_message(ctx, message):
+    # split the given message
     substrings_list = split_long_message(message)
+    # send each message
     for substring in substrings_list:
         await ctx.channel.send(substring)
-        await asyncio.sleep(2)
+        # add delay between each message
+        await asyncio.sleep(6)
 
 
 def check_for_letters(text, letters):
+    # for each letter in letters list
     for letter in letters:
+        # check if letter is in the list
         if letter in text:
             return True
     return False
