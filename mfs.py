@@ -1,19 +1,12 @@
-from twitchio.ext import commands
 from datetime import datetime
-import openai
 import os
 import asyncio
-import queue
 import time
-import requests
 import re
 from vars import *
 import g4f
 from deep_translator import GoogleTranslator
 from langdetect import detect
-import random
-from gpt4free import usesless
-from notifypy import Notify
 
 
 #   <GENERATING MESSAGES>   #
