@@ -24,13 +24,15 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 
 ## Installation
 
-1. Clone the repository
+1. Clone the repository by running
 
 ```
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-2. Install the required dependencies
+Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/stable.zip), then unzip the archive onto your system.
+
+2. Install the required dependencies by running
 
 ```
 pip install -r requirements.txt
@@ -71,6 +73,8 @@ You can add as many channels as you want.
 ```
 python main.py
 ```
+
+Or by just starting the `main.py` executable file on your computer. And you're all set! The bot will work as long as the file is running.
 
 ## Usage
 
