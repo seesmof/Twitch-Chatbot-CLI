@@ -1,5 +1,4 @@
 twitchio
-deep-translator
 websocket-client
 requests
 tls-client
@@ -23,3 +22,5 @@ numpy>=1.22.2
 tornado>=6.3.2
 PyExecJS
 browser_cookie3
+langdetect
+deep-translator
