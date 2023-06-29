@@ -1,4 +1,5 @@
 twitchio
+deep-translator
 websocket-client
 requests
 tls-client
