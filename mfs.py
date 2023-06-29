@@ -32,6 +32,7 @@ def gpt4free(input_text):
             "role": "user",
             "content": input_text
         }],
+        provider=g4f.Provider.Yqcloud
     )
     return clean_text(response)
 
