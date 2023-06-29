@@ -1,6 +1,26 @@
-# Twitch Chatbot with AI Integration
+<a name="readme-top"></a>
+
+<div align="center">
+<h1 align="center">Twitch AI Chathatbot</h1>
+</div>
+
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [About](#about)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+
+## About
 
 This is a simple Twitch chatbot that generates messages using AI. The bot listens to messages in a specified channel and generates a response based on the input text.
+
+## Prerequisites
+
+- Make sure you have **Python** of version 3.10+ installed on your system
+- Make sure you know how to work with and run commands in console
 
 ## Installation
 
@@ -59,3 +79,9 @@ Once the bot is up and running, it will listen to messages in the specified chan
 To generate a message, mention the bot in your message by using `@<yourBotName>`. The bot will then generate a response based on the input text and send it to the chat.
 
 The bot has a delay between each message of 20 seconds. If you want to change that, go to `main.py` file and change the number in brackets on line 25.
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+<p align="right"><a href="#readme-top"><strong>Back to top</strong></a></p>
