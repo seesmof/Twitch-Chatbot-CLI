@@ -11,7 +11,7 @@
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-Або перейдіть за цим [посиланням](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/0.0.1a.zip) і розархівуйте архів до вашої системи.
+Або перейдіть за цим [посиланням](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/stable.zip) і розархівуйте архів до вашої системи.
 
 2. Встановіть необхідні залежності, виконавши в консолі наступну команду
 
