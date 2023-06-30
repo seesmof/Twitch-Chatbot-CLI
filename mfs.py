@@ -7,32 +7,49 @@ from vars import *
 import g4f
 from deep_translator import GoogleTranslator
 from langdetect import detect
+from g4f.Provider import (
+    Yqcloud,
+    Aichat,
+    Lockchat,
+    ChatgptLogin,
+    DeepAi,
+    GetGpt
+)
+
+providers_list = [
+    Yqcloud,
+    Aichat,
+    Lockchat,
+    ChatgptLogin,
+    DeepAi,
+    GetGpt
+]
 
 
 #   <GENERATING MESSAGES>   #
 
-def gpt4free_ua(input_text):
-    response = gpt4free(input_text)
+def gpt4free_ua(input_text, input_provider):
+    response = gpt4free(input_text, input_provider)
     response = GoogleTranslator(
         source='auto', target='uk').translate(response)
     return response
 
 
-def gpt4free_en(input_text):
+def gpt4free_en(input_text, input_provider):
     input_prompt = GoogleTranslator(
         source='auto', target='en').translate(input_text)
-    response = gpt4free(input_prompt)
+    response = gpt4free(input_prompt, input_provider)
     return response
 
 
-def gpt4free(input_text):
+def gpt4free(input_text, input_provider):
     response = g4f.ChatCompletion.create(
         model=g4f.Model.gpt_35_turbo,
         messages=[{
             "role": "user",
             "content": input_text
         }],
-        provider=g4f.Provider.Yqcloud
+        provider=input_provider
     )
     return clean_text(response)
 
@@ -59,10 +76,42 @@ def generate_ai_message(message):
 
     if detect(input_text) == "uk" or detect(input_text) == "ru":
         print("Language is Ukrainian")
-        output_text += gpt4free_ua(input_text)
+        try:
+            output_text = gpt4free_ua(input_text, providers_list[0])
+        except:
+            providers_list.remove(providers_list[0])
+        if output_text == "" or output_text == None or output_text == "None":
+            print(f"Response not generated")
+            providers_list.remove(providers_list[0])
+            for provider in providers_list:
+                try:
+                    output_text = gpt4free_ua(input_text, provider)
+                    if output_text != "" or output_text != None or output_text != "None":
+                        break
+                    else:
+                        continue
+                except:
+                    print(f"Response not generated")
+                    providers_list.remove(provider)
     else:
         print("Language is NOT Ukrainian")
-        output_text += gpt4free_en(input_text)
+        try:
+            output_text = gpt4free_en(input_text, providers_list[0])
+        except:
+            providers_list.remove(providers_list[0])
+        if output_text == "" or output_text == None or output_text == "None":
+            print(f"Response not generated")
+            providers_list.remove(providers_list[0])
+            for provider in providers_list:
+                try:
+                    output_text = gpt4free_en(input_text, provider)
+                    if output_text != "" or output_text != None or output_text != "None":
+                        break
+                    else:
+                        continue
+                except:
+                    print(f"Response not generated")
+                    providers_list.remove(provider)
 
     end_time = time.time()
     elapsed_time = end_time - start_time
