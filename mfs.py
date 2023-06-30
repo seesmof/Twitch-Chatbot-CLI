@@ -73,8 +73,9 @@ def generate_ai_message(message):
     input_text = message.replace(f"{GPT_BOT_NICK}", "")
     input_text = input_text.replace("@", "")
     output_text = ""
+    lang = detect(input_text)
 
-    if detect(input_text) == "uk" or detect(input_text) == "ru":
+    if lang == "uk" or lang == "ru":
         print("Language is Ukrainian")
         try:
             output_text = gpt4free_ua(input_text, providers_list[0])
