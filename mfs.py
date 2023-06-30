@@ -17,12 +17,12 @@ from g4f.Provider import (
 )
 
 providers_list = [
-    Yqcloud,
+    DeepAi,
+    GetGpt,
     Aichat,
+    Yqcloud,
     Lockchat,
     ChatgptLogin,
-    DeepAi,
-    GetGpt
 ]
 
 
