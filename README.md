@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-<a href="./instruction_Ukraine.md"><strong>Інструкція Українською <img width="14" src="https://img.icons8.com/external-others-iconmarket/64/external-national-flags-others-iconmarket-5.png" alt="external-national-flags-others-iconmarket-5" /></strong></a>
+<a href="./instruction_Ukraine.md"><strong><img height="10" src="./interference/Ukraine.png" alt="external-national-flags-others-iconmarket-5" /> Інструкція Українською <img height="10" src="./interference/Ukraine.png" alt="external-national-flags-others-iconmarket-5" /></strong></a>
 
 <div align="center">
 <h1 align="center">Twitch AI Chathatbot</h1>
