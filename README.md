@@ -1,5 +1,7 @@
 <a name="readme-top"></a>
 
+<a href="./instruction_Ukraine.md"><strong>Інструкція Українською <img width="14" src="https://img.icons8.com/external-others-iconmarket/64/external-national-flags-others-iconmarket-5.png" alt="external-national-flags-others-iconmarket-5" /></strong></a>
+
 <div align="center">
 <h1 align="center">Twitch AI Chathatbot</h1>
 </div>
@@ -38,7 +40,7 @@ Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/t
 pip install -r requirements.txt
 ```
 
-3. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the token.
+3. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the `Access Token` value.
 
 4. Go to `vars.py` file and add change the following variables:
 
