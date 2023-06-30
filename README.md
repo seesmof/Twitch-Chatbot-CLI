@@ -68,7 +68,7 @@ WANTED_CHANNELS = [
 ]
 ```
 
-You can add as many channels as you want.
+You can add as many channels as you want. Also make sure that there is no `#` sign in square brackets before the name of your channel. In Python, it denotes a comment, so all lines with this sign in front will be ignored by the program.
 
 5. Run the bot using the following command:
 
