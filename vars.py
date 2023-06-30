@@ -6,6 +6,9 @@ GPT_TOKEN = ""
 # enter your bot's nickname, without @
 GPT_BOT_NICK = ""
 
+# enter a delay between messages. set to 20 seconds by default
+DELAY = 20  # in seconds
+
 # enter the channel names you want your bot to work in
 WANTED_CHANNELS = [
     # "yourChannelName",

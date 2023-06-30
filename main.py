@@ -21,8 +21,7 @@ class Bot(commands.Bot):
                 output_text = split_long_gpt(output_text)
                 for substr in output_text:
                     await message.channel.send(f"{substr} @{message.author.name}")
-                    # change the number in brackets to change the delay between messages
-                    await asyncio.sleep(20)
+                    await asyncio.sleep(DELAY)
             write_to_log(message.content, message.author.name,
                          message.channel.name)
 

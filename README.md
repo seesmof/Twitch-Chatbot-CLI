@@ -51,6 +51,9 @@ GPT_TOKEN = ""
 # enter your bot's nickname, without @
 GPT_BOT_NICK = ""
 
+# OPTIONAL: enter a delay between messages, if needed. set to 20 seconds by default
+DELAY = 20  # in seconds
+
 # enter the channel names you want your bot to work in
 WANTED_CHANNELS = [
     # "yourChannelName",
@@ -69,6 +72,8 @@ WANTED_CHANNELS = [
 ```
 
 You can add as many channels as you want. Also make sure that there is no `#` sign in square brackets before the name of your channel. In Python, it denotes a comment, so all lines with this sign in front will be ignored by the program.
+
+Regarding the delay between messages, keep in mind that it is optinal to change it. If you want your bot to send and process messages faster, feel free to change it. But do keep in mind that setting it too low might result in a temporary suspension of your bot's account, so I would not recommend setting it below **5 seconds**.
 
 5. Run the bot using the following command:
 
