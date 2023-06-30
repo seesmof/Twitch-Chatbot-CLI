@@ -147,37 +147,26 @@ def split_long_message(input_string):
 
 
 async def send_split_message(ctx, message):
-    # split the given message
     substrings_list = split_long_message(message)
-    # send each message
     for substring in substrings_list:
         await ctx.channel.send(substring)
-        # add delay between each message
         await asyncio.sleep(6)
 
 
 def check_for_letters(text, letters):
-    # for each letter in letters list
     for letter in letters:
-        # check if letter is in the list
         if letter in text:
             return True
     return False
 
 
 def write_to_log(message, author, CHANNEL):
-    # for handling current time
     now = datetime.now()
-    # for handling the file name
     file_name = CHANNEL + "-log_" + now.strftime("%d-%m-%Y") + ".md"
-    # for handling the file path
     file_path = os.path.join(log_dir, file_name)
 
-    # open file with appropriate decoding
     with open(file_path, "a", encoding="utf-8") as log_file:
-        # declare and output timestamp before message
         timestamp = datetime.now().strftime('%H:%M:%S')
         log_file.write(timestamp)
-        # output message with author name to log
         log_file.write(f"\n\n{author}: {message}\n")
         log_file.write(f"\n---\n\n")
