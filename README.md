@@ -32,7 +32,7 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/stable.zip), then unzip the archive onto your system.
+Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/0.0.1a.zip), then unzip the archive onto your system.
 
 2. Install the required dependencies by running
 
