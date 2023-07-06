@@ -15,6 +15,12 @@ WANTED_CHANNELS = [
     "addMoreIfNeeded",
 ]
 
+# CAUTION: enter the users you don't want your bot to answer to. useful for preventing answering to other bots or just unwanted individuals using your bot.
+BLOCKED_USERS = [
+    "dontReplyToThisUser",
+    "andThisOneToo",
+]
+
 # enter your potential log directory file path, below is just an example
 log_dir = "C:/TwitchBot/logs/"
 # Check if the log folder exists
