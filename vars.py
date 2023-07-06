@@ -1,10 +1,10 @@
 import os
 
 # enter your bot token
-GPT_TOKEN = ""
+TOKEN = ""
 
 # enter your bot's nickname, without @
-GPT_BOT_NICK = ""
+BOT_NICK = ""
 
 # enter a delay between messages. set to 20 seconds by default
 DELAY = 20  # in seconds

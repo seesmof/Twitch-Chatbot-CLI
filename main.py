@@ -5,7 +5,7 @@ from mfs import *
 
 class Bot(commands.Bot):
     def __init__(self):
-        super().__init__(token=GPT_TOKEN,
+        super().__init__(token=TOKEN,
                          prefix='!', initial_channels=WANTED_CHANNELS)
         self.lock = asyncio.Lock()
 
@@ -15,8 +15,8 @@ class Bot(commands.Bot):
 
     async def event_message(self, message):
         async with self.lock:
-            letters = [f"@{GPT_BOT_NICK}"]
-            if check_for_letters(message.content.lower(), letters) and message.author.name != GPT_BOT_NICK and message.author.name not in BLOCKED_USERS:
+            letters = [f"@{BOT_NICK}"]
+            if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
                 output_text = generate_ai_message(message.content)
                 output_text = split_long_gpt(output_text)
                 for substr in output_text:
