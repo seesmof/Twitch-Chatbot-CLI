@@ -13,7 +13,7 @@ from g4f.Provider import (
     Lockchat,
     ChatgptLogin,
     DeepAi,
-    GetGpt
+    GetGpt,
 )
 
 providers_list = [
@@ -24,6 +24,7 @@ providers_list = [
     Lockchat,
     ChatgptLogin,
 ]
+messages = []
 
 
 #   <GENERATING MESSAGES>   #
@@ -43,14 +44,19 @@ def gpt4free_en(input_text, input_provider):
 
 
 def gpt4free(input_text, input_provider):
+    messages.append({
+        "role": "user",
+        "content": input_text
+    })
     response = g4f.ChatCompletion.create(
         model=g4f.Model.gpt_35_turbo,
-        messages=[{
-            "role": "user",
-            "content": input_text
-        }],
+        messages=messages,
         provider=input_provider
     )
+    messages.append({
+        "role": "assistant",
+        "content": response,
+    })
     return clean_text(response)
 
 
