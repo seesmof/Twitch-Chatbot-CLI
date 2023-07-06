@@ -77,7 +77,7 @@ def generate_ai_message(message):
     print("\nGenerating a message...\n")
     start_time = time.time()
 
-    input_text = message.replace(f"{GPT_BOT_NICK}", "")
+    input_text = message.replace(f"{BOT_NICK}", "")
     input_text = input_text.replace("@", "")
     output_text = ""
     lang = detect(input_text)
