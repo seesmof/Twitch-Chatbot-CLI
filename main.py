@@ -18,11 +18,13 @@ class Bot(commands.Bot):
             letters = [f"@{BOT_NICK}"]
             if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
                 output_text = generate_ai_message(message.content)
-                output_text = split_long_gpt(output_text)
-                for substr in output_text:
+                split_text = split_long_gpt(output_text)
+                for substr in split_text:
                     await message.channel.send(f"{substr} @{message.author.name}")
                     await asyncio.sleep(DELAY)
             write_to_log(message.content, message.author.name,
+                         message.channel.name)
+            write_to_log(output_text, BOT_NICK.upper(),
                          message.channel.name)
 
 
