@@ -42,46 +42,7 @@ pip install -r requirements.txt
 
 3. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the `Access Token` value.
 
-4. Go to `vars.py` file and add change the following variables:
-
-```py
-# enter your bot token
-GPT_TOKEN = ""
-
-# enter your bot's nickname, without @
-GPT_BOT_NICK = ""
-
-# OPTIONAL: enter a delay between messages, if needed. set to 20 seconds by default
-DELAY = 20  # in seconds
-
-# enter the channel names you want your bot to work in
-WANTED_CHANNELS = [
-    "replaceWithYourChannelName",
-    "addMoreIfNeeded",
-]
-
-# CAUTION: enter the users you don't want your bot to answer to. useful for preventing answering to other bots or just unwanted individuals using your bot.
-BLOCKED_USERS = [
-    "dontReplyToThisUser",
-    "andThisOneToo",
-]
-```
-
-Example of a working channels list:
-
-```py
-WANTED_CHANNELS = [
-    "yourChannelName",
-    "anotherChannelName",
-    "yetAnotherChannelName",
-]
-```
-
-You can add as many channels as you want. Also make sure that there is no `#` sign in square brackets before the name of your channel. In Python, it denotes a comment, so all lines with this sign in front will be ignored by the program.
-
-Regarding the delay between messages, keep in mind that it is optinal to change it. If you want your bot to send and process messages faster, feel free to change it. But do keep in mind that setting it too low might result in a temporary suspension of your bot's account, so I would not recommend setting it below **5 seconds**.
-
-As for the blocked users variable, it is an array of users that you don't want your bot to respond to. If a user is added into this array, his bot queries will be ignored by the bot. Use with caution, make sure you don't accidentally block users that you don't wanna block.
+4. Follow [these instructions](./more_on_vars.md) to set up the necessary variables.
 
 5. Run the bot using the following command:
 
