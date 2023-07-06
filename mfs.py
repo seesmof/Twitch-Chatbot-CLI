@@ -25,6 +25,7 @@ providers_list = [
     ChatgptLogin,
 ]
 messages = []
+# TODO: Add an option to turn off memory for the bot using a separate variable in vars.py
 
 
 #   <GENERATING MESSAGES>   #
