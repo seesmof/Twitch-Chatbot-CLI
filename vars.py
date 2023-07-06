@@ -11,8 +11,8 @@ DELAY = 20  # in seconds
 
 # enter the channel names you want your bot to work in
 WANTED_CHANNELS = [
-    # "yourChannelName",
-    # "...",
+    "replaceWithYourChannelName",
+    "addMoreIfNeeded",
 ]
 
 # enter your potential log directory file path, below is just an example

@@ -56,8 +56,8 @@ DELAY = 20  # in seconds
 
 # enter the channel names you want your bot to work in
 WANTED_CHANNELS = [
-    # "yourChannelName",
-    # "...",
+    "replaceWithYourChannelName",
+    "addMoreIfNeeded",
 ]
 ```
 
