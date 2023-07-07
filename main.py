@@ -16,6 +16,8 @@ class Bot(commands.Bot):
     async def event_message(self, message):
         async with self.lock:
             letters = [f"@{BOT_NICK}"]
+            output_text = ""
+
             if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
                 output_text = generate_ai_message(message.content)
                 split_text = split_long_gpt(output_text)
@@ -24,10 +26,17 @@ class Bot(commands.Bot):
                     await asyncio.sleep(DELAY)
 
             if LOGGING:
-                write_to_log(message.content, message.author.name,
-                             message.channel.name)
-                write_to_log(output_text, BOT_NICK.upper(),
-                             message.channel.name)
+                if message.author is not None:
+                    write_to_log(message.content, message.author.name,
+                                 message.channel.name)
+                    write_to_log(output_text, BOT_NICK.upper(),
+                                 message.channel.name)
+                    print(f"logged nicely")
+                else:
+                    write_to_log(message.content, "UNKNOWN",
+                                 message.channel.name)
+                    write_to_log(output_text, BOT_NICK.upper(),
+                                 message.channel.name)
 
 
 bot = Bot()
