@@ -22,10 +22,12 @@ class Bot(commands.Bot):
                 for substr in split_text:
                     await message.channel.send(f"{substr} @{message.author.name}")
                     await asyncio.sleep(DELAY)
-            write_to_log(message.content, message.author.name,
-                         message.channel.name)
-            write_to_log(output_text, BOT_NICK.upper(),
-                         message.channel.name)
+
+            if LOGGING:
+                write_to_log(message.content, message.author.name,
+                             message.channel.name)
+                write_to_log(output_text, BOT_NICK.upper(),
+                             message.channel.name)
 
 
 bot = Bot()

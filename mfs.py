@@ -24,8 +24,9 @@ providers_list = [
     Lockchat,
     ChatgptLogin,
 ]
-messages = []
-# TODO: Add an option to turn off memory for the bot using a separate variable in vars.py
+
+if ALLOW_MEMORY:
+    messages = []
 
 
 #   <GENERATING MESSAGES>   #
@@ -45,19 +46,34 @@ def gpt4free_en(input_text, input_provider):
 
 
 def gpt4free(input_text, input_provider):
-    messages.append({
-        "role": "user",
-        "content": input_text
-    })
-    response = g4f.ChatCompletion.create(
-        model=g4f.Model.gpt_35_turbo,
-        messages=messages,
-        provider=input_provider
-    )
-    messages.append({
-        "role": "assistant",
-        "content": response,
-    })
+    if ALLOW_MEMORY:
+        messages.append({
+            "role": "user",
+            "content": input_text
+        })
+
+    if ALLOW_MEMORY:
+        response = g4f.ChatCompletion.create(
+            model=g4f.Model.gpt_35_turbo,
+            messages=messages,
+            provider=input_provider
+        )
+    else:
+        response = g4f.ChatCompletion.create(
+            model=g4f.Model.gpt_35_turbo,
+            messages=[{
+                "role": "user",
+                "content": input_text
+            }],
+            provider=input_provider
+        )
+
+    if ALLOW_MEMORY:
+        messages.append({
+            "role": "assistant",
+            "content": response,
+        })
+
     return clean_text(response)
 
 
@@ -124,6 +140,7 @@ def generate_ai_message(message):
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"\nGenerated in {elapsed_time:.2f} seconds")
+
     return output_text
 
 

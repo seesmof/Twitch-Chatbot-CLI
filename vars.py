@@ -21,11 +21,11 @@ BLOCKED_USERS = [
     "andThisOneToo",
 ]
 
-# whether to allow the bot to have a memory of the previous chat messages. possible values are either True or False
-ALLOW_MEMORY = False
+# whether to allow the bot to have a memory of the previous chat messages. possible values are either True or False. set to True by default
+ALLOW_MEMORY = True
 
 # whether to log the chat messages to a file. possible values are either True or False
-LOGGING = False
+LOGGING = True
 
 if LOGGING:
     # the path to a folder where the logs will be saved. feel free to change it to whichever one you want
