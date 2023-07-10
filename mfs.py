@@ -14,6 +14,8 @@ from g4f.Provider import (
     ChatgptLogin,
     DeepAi,
     GetGpt,
+    AItianhu,
+    EasyChat,
 )
 
 providers_list = [
@@ -23,6 +25,8 @@ providers_list = [
     Yqcloud,
     Lockchat,
     ChatgptLogin,
+    AItianhu,
+    EasyChat,
 ]
 
 if ALLOW_MEMORY:
