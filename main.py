@@ -18,7 +18,7 @@ class Bot(commands.Bot):
             letters = [f"@{BOT_NICK}"]
             output_text = ""
             print(
-                f'Message from {message.author.name}: {message.content}. Channel: {message.channel.name}')
+                f'\nMessage from {message.author.name}: {message.content}. Channel: {message.channel.name}\n')
 
             if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
                 output_text = generate_ai_message(message.content)
@@ -28,20 +28,10 @@ class Bot(commands.Bot):
                     await asyncio.sleep(DELAY)
 
             if LOGGING:
-                if message.author is not None:
-                    write_to_log(message.content, message.author.name,
-                                 message.channel.name)
-                    write_to_log(output_text, BOT_NICK.upper(),
-                                 message.channel.name)
-                    print(
-                        f"Query from {message.author.name} in {message.channel.name} as well as the response to it by {BOT_NICK} were successfully logged.")
-                else:
-                    write_to_log(message.content, "UNKNOWN",
-                                 message.channel.name)
-                    write_to_log(output_text, BOT_NICK.upper(),
-                                 message.channel.name)
-                    print(
-                        f"Query from UNKNOWN in {message.channel.name} as well as the response to it by {BOT_NICK} were successfully logged.")
+                write_to_log(message.content, message.author.name,
+                             message.channel.name)
+                print(
+                    f"\nLogged\n")
 
 
 bot = Bot()

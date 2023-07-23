@@ -208,8 +208,11 @@ def write_to_log(message, author, CHANNEL):
     file_name = CHANNEL + "-log_" + now.strftime("%d-%m-%Y") + ".md"
     file_path = os.path.join(log_dir, file_name)
 
-    with open(file_path, "a", encoding="utf-8") as log_file:
-        timestamp = datetime.now().strftime('%H:%M:%S')
-        log_file.write(timestamp)
-        log_file.write(f"\n\n{author}: {message}\n")
-        log_file.write(f"\n---\n\n")
+    try:
+        with open(file_path, "a", encoding="utf-8") as log_file:
+            timestamp = datetime.now().strftime('%H:%M:%S')
+            log_file.write(timestamp)
+            log_file.write(f"\n\n{author}: {message}\n")
+            log_file.write(f"\n---\n\n")
+    except:
+        print(f"Could not write to {file_path}")
