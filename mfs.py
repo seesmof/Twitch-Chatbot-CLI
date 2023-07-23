@@ -109,9 +109,7 @@ def clean_text(text):
 
 
 def generate_ai_message(message):
-    print("\nGenerating a message...\n")
     start_time = time.time()
-
     input_text = message.replace(f"{BOT_NICK}", "")
     input_text = input_text.replace("@", "")
     output_text = ""
@@ -159,7 +157,6 @@ def generate_ai_message(message):
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"\nGenerated in {elapsed_time:.2f} seconds")
-
     return output_text
 
 
