@@ -18,7 +18,7 @@ class Bot(commands.Bot):
             letters = [f"@{BOT_NICK}"]
             output_text = ""
             print(
-                f'\nMessage from {message.author.name}: {message.content}. Channel: {message.channel.name}\n')
+                f'\nMessage from {message.author.name}: {message.content}\nChannel: {message.channel.name}')
 
             if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
                 output_text = generate_ai_message(message.content)
