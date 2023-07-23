@@ -1,32 +1,47 @@
-from datetime import datetime
-import os
 import asyncio
+from datetime import datetime
 import time
+from deep_translator import GoogleTranslator
+import os
+from langdetect import detect
 import re
+
 from vars import *
 import g4f
-from deep_translator import GoogleTranslator
-from langdetect import detect
 from g4f.Provider import (
+    Ails,
+    You,
+    Bing,
     Yqcloud,
+    Theb,
     Aichat,
+    Bard,
+    Vercel,
+    Forefront,
     Lockchat,
+    Liaobots,
+    H2o,
     ChatgptLogin,
     DeepAi,
-    GetGpt,
-    AItianhu,
-    EasyChat,
+    GetGpt
 )
 
 providers_list = [
-    DeepAi,
-    GetGpt,
-    Aichat,
+    Ails,
+    You,
+    Bing,
     Yqcloud,
+    Theb,
+    Aichat,
+    Bard,
+    Vercel,
+    Forefront,
     Lockchat,
+    Liaobots,
+    H2o,
     ChatgptLogin,
-    AItianhu,
-    EasyChat,
+    DeepAi,
+    GetGpt
 ]
 
 if ALLOW_MEMORY:
