@@ -37,16 +37,18 @@ def gpt4free(input_text):
 
     if ALLOW_MEMORY:
         response = g4f.ChatCompletion.create(
-            model='falcon-40b',
+            model='gpt-3.5-turbo',
             messages=messages,
+            provider=g4f.Provider.AItianhu
         )
     else:
         response = g4f.ChatCompletion.create(
-            model='falcon-40b',
+            model='gpt-3.5-turbo',
             messages=[{
                 "role": "user",
                 "content": input_text
             }],
+            provider=g4f.Provider.AItianhu
         )
 
     if ALLOW_MEMORY:
