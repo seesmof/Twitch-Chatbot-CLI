@@ -6,8 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-.gitignore
-.gitattributes
 
 # Dependencies and build artifacts
 node_modules/
