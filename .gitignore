@@ -14,7 +14,7 @@ dist-ssr/
 *.local
 __pycache__/
 test.py
-plans.md
+_plans.md
 
 # Editor directories and files
 .vscode/*
