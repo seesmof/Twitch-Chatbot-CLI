@@ -8,37 +8,27 @@ import re
 
 from vars import *
 import g4f
-from g4f.Provider import (
-    Aichat,
-    DeepAi,
-)
-
-providers_list = [
-    DeepAi,
-    Aichat,
-]
-
 if ALLOW_MEMORY:
     messages = []
 
 
 #   <GENERATING MESSAGES>   #
 
-def gpt4free_ua(input_text, input_provider):
-    response = gpt4free(input_text, input_provider)
+def gpt4free_ua(input_text):
+    response = gpt4free(input_text)
     response = GoogleTranslator(
         source='auto', target='uk').translate(response)
     return response
 
 
-def gpt4free_en(input_text, input_provider):
+def gpt4free_en(input_text):
     input_prompt = GoogleTranslator(
         source='auto', target='en').translate(input_text)
-    response = gpt4free(input_prompt, input_provider)
+    response = gpt4free(input_prompt)
     return response
 
 
-def gpt4free(input_text, input_provider):
+def gpt4free(input_text):
     if ALLOW_MEMORY:
         messages.append({
             "role": "user",
@@ -47,18 +37,16 @@ def gpt4free(input_text, input_provider):
 
     if ALLOW_MEMORY:
         response = g4f.ChatCompletion.create(
-            model=g4f.Model.gpt_35_turbo,
+            model='falcon-40b',
             messages=messages,
-            provider=input_provider
         )
     else:
         response = g4f.ChatCompletion.create(
-            model=g4f.Model.gpt_35_turbo,
+            model='falcon-40b',
             messages=[{
                 "role": "user",
                 "content": input_text
             }],
-            provider=input_provider
         )
 
     if ALLOW_MEMORY:
@@ -91,42 +79,10 @@ def generate_ai_message(message):
 
     if lang == "uk" or lang == "ru":
         print("Language is Ukrainian")
-        try:
-            output_text = gpt4free_ua(input_text, providers_list[0])
-        except:
-            providers_list.remove(providers_list[0])
-        if output_text == "" or output_text == None or output_text == "None":
-            print(f"Response not generated")
-            providers_list.remove(providers_list[0])
-            for provider in providers_list:
-                try:
-                    output_text = gpt4free_ua(input_text, provider)
-                    if output_text != "" or output_text != None or output_text != "None":
-                        break
-                    else:
-                        continue
-                except:
-                    print(f"Response not generated")
-                    providers_list.remove(provider)
+        output_text = gpt4free_ua(input_text)
     else:
         print("Language is NOT Ukrainian")
-        try:
-            output_text = gpt4free_en(input_text, providers_list[0])
-        except:
-            providers_list.remove(providers_list[0])
-        if output_text == "" or output_text == None or output_text == "None":
-            print(f"Response not generated")
-            providers_list.remove(providers_list[0])
-            for provider in providers_list:
-                try:
-                    output_text = gpt4free_en(input_text, provider)
-                    if output_text != "" or output_text != None or output_text != "None":
-                        break
-                    else:
-                        continue
-                except:
-                    print(f"Response not generated")
-                    providers_list.remove(provider)
+        output_text = gpt4free_en(input_text)
 
     end_time = time.time()
     elapsed_time = end_time - start_time
