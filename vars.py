@@ -1,4 +1,5 @@
 import os
+from personas import PERSONAS
 
 # enter your bot token
 TOKEN = ""
@@ -27,6 +28,7 @@ ALLOW_MEMORY = True
 # whether to log the chat messages to a file. possible values are either True or False
 LOGGING = True
 
+# replace with persona name you want to set, or type in the persona description you want, or simply leave empty if you don't want any persona
 PERSONA = ""
 
 if LOGGING:
@@ -36,3 +38,6 @@ if LOGGING:
     if not os.path.exists(log_dir):
         # Create the log folder if it doesn't exist
         os.makedirs(log_dir)
+
+if PERSONA in PERSONAS:
+    PERSONA = PERSONAS[PERSONA]

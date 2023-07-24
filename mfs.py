@@ -74,7 +74,7 @@ def generate_ai_message(message):
             break
         except Exception as e:
             print(f"Exception occurred for provider {provider}: {e}")
-            continue  # Try the next provider
+            continue
 
     if output_text is None:
         for model in fallback_models:
@@ -83,7 +83,7 @@ def generate_ai_message(message):
                 break
             except Exception as e:
                 print(f"Exception occurred for fallback model {model}: {e}")
-                continue  # Try the next fallback model
+                continue
 
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -104,9 +104,10 @@ def clean_text(text):
     text = re.sub(r'\".*?\"', '', text)
     text = re.sub(r'\*', '', text)
     text = re.sub(r'\n', ' ', text)
+    text = re.sub(r'user: ', '', text, flags=re.I)
+    text = re.sub(r'system: ', '', text, flags=re.I)
+    text = re.sub(r'assistant: ', '', text, flags=re.I)
     text = text.replace(" : ", "")
-    text = text.replace("Assistant: ", "")
-    text = text.replace("user: ", "")
     return text
 
 
