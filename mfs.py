@@ -13,7 +13,7 @@ if ALLOW_MEMORY:
         {
             "role": "system",
             "content": PERSONA,
-        }
+        },
     ]
 
 

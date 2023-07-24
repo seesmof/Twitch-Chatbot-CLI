@@ -30,6 +30,7 @@ LOGGING = True
 
 # replace with persona name you want to set, or type in the persona description you want, or simply leave empty if you don't want any persona
 PERSONA = ""
+# list of personas can be found in `personas.py` file, further information on setup specifics can be found in `more_on_vars.md` file
 
 if LOGGING:
     # the path to a folder where the logs will be saved. feel free to change it to whichever one you want
