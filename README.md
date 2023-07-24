@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-<a href="./instruction_Ukraine.md"><strong>Інструкція Українською</strong></a>
+<a href="./README_Ukrainian.md"><strong>Інструкція Українською</strong></a>
 
 <div align="center">
 <h1 align="center">Twitch AI Chathatbot</h1>
@@ -32,7 +32,7 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.1.1.zip), then unzip the archive onto your system.
+Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.0.zip), then unzip the archive onto your system.
 
 2. Install the required dependencies by running
 
