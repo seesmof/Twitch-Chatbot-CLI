@@ -28,16 +28,16 @@ ALLOW_MEMORY = True
 # whether to log the chat messages to a file. possible values are either True or False
 LOGGING = True
 
-# replace with persona name you want to set, or type in the persona description you want, or simply leave empty if you don't want any persona
+# replace with persona name you want to set (make sure its in quotes as well), or type in the persona description you want. alternatively simply leave empty if you don't want any persona to be enabled
 PERSONA = ""
-# list of personas can be found in `personas.py` file, further information on setup specifics can be found in `more_on_vars.md` file
+# list of personas can be found in personas file, further information on setup specifics can be found in more_on_vars file
 
 if LOGGING:
     # the path to a folder where the logs will be saved. feel free to change it to whichever one you want
     log_dir = "./logs/"
-    # Check if the log folder exists
+    # check if the log folder exists
     if not os.path.exists(log_dir):
-        # Create the log folder if it doesn't exist
+        # create the log folder if it doesn't exist
         os.makedirs(log_dir)
 
 if PERSONA in PERSONAS:
