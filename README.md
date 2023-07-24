@@ -13,6 +13,7 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## About
@@ -59,6 +60,10 @@ Once the bot is up and running, it will listen to messages in the specified chan
 To generate a message, mention the bot in your message by using `@<yourBotName>`. The bot will then generate a response based on the input text and send it to the chat.
 
 The bot has a delay between each message of 20 seconds. If you want to change that, go to `main.py` file and change the number in brackets on line 25.
+
+## Contributing
+
+Contributions of any kind are welcome! Please check out the [contributing guide](CONTRIBUTING.md) for more info on how to get started.
 
 ## License
 
