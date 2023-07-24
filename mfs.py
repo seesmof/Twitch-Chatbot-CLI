@@ -9,26 +9,17 @@ import re
 from vars import *
 import g4f
 if ALLOW_MEMORY:
-    messages = []
+    messages = [
+        {
+            "role": "system",
+            "content": PERSONA,
+        }
+    ]
 
 
 #   <GENERATING MESSAGES>   #
 
-def gpt4free_ua(input_text):
-    response = gpt4free(input_text)
-    response = GoogleTranslator(
-        source='auto', target='uk').translate(response)
-    return response
-
-
-def gpt4free_en(input_text):
-    input_prompt = GoogleTranslator(
-        source='auto', target='en').translate(input_text)
-    response = gpt4free(input_prompt)
-    return response
-
-
-def gpt4free(input_text):
+def gpt4free(input_text, provider, model="gpt-3.5-turbo"):
     if ALLOW_MEMORY:
         messages.append({
             "role": "user",
@@ -37,18 +28,18 @@ def gpt4free(input_text):
 
     if ALLOW_MEMORY:
         response = g4f.ChatCompletion.create(
-            model='gpt-3.5-turbo',
+            model=model,
             messages=messages,
-            provider=g4f.Provider.AItianhu
+            provider=provider
         )
     else:
         response = g4f.ChatCompletion.create(
-            model='gpt-3.5-turbo',
+            model=model,
             messages=[{
                 "role": "user",
                 "content": input_text
             }],
-            provider=g4f.Provider.AItianhu
+            provider=provider
         )
 
     if ALLOW_MEMORY:
@@ -60,6 +51,52 @@ def gpt4free(input_text):
     return clean_text(response)
 
 
+def generate_ai_message(message):
+    start_time = time.time()
+    input_text = message.replace(f"{BOT_NICK}", "")
+    input_text = input_text.replace("@", "")
+
+    providers = [
+        g4f.Provider.AItianhu,
+        g4f.Provider.DeepAi
+    ]
+    fallback_models = [
+        "falcon-40b",
+        "falcon-7b",
+        "llama-13b",
+    ]
+    fallback_provider = g4f.Provider.H2o
+    output_text = None
+
+    for provider in providers:
+        try:
+            output_text = gpt4free(input_text, provider)
+            break
+        except Exception as e:
+            print(f"Exception occurred for provider {provider}: {e}")
+            continue  # Try the next provider
+
+    if output_text is None:
+        for model in fallback_models:
+            try:
+                output_text = gpt4free(input_text, fallback_provider, model)
+                break
+            except Exception as e:
+                print(f"Exception occurred for fallback model {model}: {e}")
+                continue  # Try the next fallback model
+
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\nGenerated in {elapsed_time:.2f} seconds")
+
+    if (detect(input_text) == "ua" or detect(input_text) == "ru") and detect(output_text) != "ua":
+        output_text = GoogleTranslator(
+            source='auto', target='ua').translate(output_text)
+    return output_text
+
+
+# Below are supplementary functions, just leave them as they are, unless you know what you're doing
+
 def clean_text(text):
     text = re.sub(r'http\S+', '', text)
     text = re.sub(r'www\S+', '', text)
@@ -68,31 +105,9 @@ def clean_text(text):
     text = re.sub(r'\*', '', text)
     text = re.sub(r'\n', ' ', text)
     text = text.replace(" : ", "")
-
+    text = text.replace("Assistant: ", "")
+    text = text.replace("user: ", "")
     return text
-
-
-def generate_ai_message(message):
-    start_time = time.time()
-    input_text = message.replace(f"{BOT_NICK}", "")
-    input_text = input_text.replace("@", "")
-    output_text = ""
-    lang = detect(input_text)
-
-    if lang == "uk" or lang == "ru":
-        print("Language is Ukrainian")
-        output_text = gpt4free_ua(input_text)
-    else:
-        print("Language is NOT Ukrainian")
-        output_text = gpt4free_en(input_text)
-
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f"\nGenerated in {elapsed_time:.2f} seconds")
-    return output_text
-
-
-# Below are supplementary functions, just leave them as they are, unless you know what you're doing
 
 
 def split_long_gpt(input_string):

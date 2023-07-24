@@ -27,6 +27,8 @@ ALLOW_MEMORY = True
 # whether to log the chat messages to a file. possible values are either True or False
 LOGGING = True
 
+PERSONA = ""
+
 if LOGGING:
     # the path to a folder where the logs will be saved. feel free to change it to whichever one you want
     log_dir = "./logs/"
