@@ -6,7 +6,7 @@ import os
 from langdetect import detect
 import re
 
-from testVars import *
+from vars import *
 import g4f
 system_prompt = {
     "role": "system",
