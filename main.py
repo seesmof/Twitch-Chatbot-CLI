@@ -1,5 +1,4 @@
 from twitchio.ext import commands
-from vars import *
 from mfs import *
 
 
