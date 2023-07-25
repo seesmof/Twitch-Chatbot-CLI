@@ -13,24 +13,27 @@ class Bot(commands.Bot):
         print(f'User id is | {self.user_id}')
 
     async def event_message(self, message):
-        async with self.lock:
-            letters = [f"@{BOT_NICK}"]
-            output_text = ""
-            print(
-                f'\nMessage from {message.author.name}: {message.content}\nChannel: {message.channel.name}')
-
-            if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
-                output_text = generate_ai_message(message.content)
-                split_text = split_long_gpt(output_text)
-                for substr in split_text:
-                    await message.channel.send(f"{substr} @{message.author.name}")
-                    await asyncio.sleep(DELAY)
-
-            if LOGGING:
-                write_to_log(message.content, message.author.name,
-                             message.channel.name)
+        try:
+            async with self.lock:
+                letters = [f"@{BOT_NICK}"]
+                output_text = ""
                 print(
-                    f"\nLogged\n")
+                    f'\nMessage from {message.author.name}: {message.content}\nChannel: {message.channel.name}')
+
+                if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
+                    output_text = generate_ai_message(message.content)
+                    split_text = split_long_gpt(output_text)
+                    for substr in split_text:
+                        await message.channel.send(f"{substr} @{message.author.name}")
+                        await asyncio.sleep(DELAY)
+
+                if LOGGING:
+                    write_to_log(message.content, message.author.name,
+                                 message.channel.name)
+                    print(
+                        f"\nLogged\n")
+        except Exception as e:
+            pass
 
 
 bot = Bot()
