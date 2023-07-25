@@ -31,7 +31,7 @@ class Bot(commands.Bot):
                     write_to_log(message.content, message.author.name,
                                  message.channel.name)
                     print(
-                        f"\nLogged\n")
+                        f"\nLogged")
         except Exception as e:
             pass
 
