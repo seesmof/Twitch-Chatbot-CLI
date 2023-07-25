@@ -6,14 +6,13 @@ import os
 from langdetect import detect
 import re
 
-from vars import *
+from testVars import *
 import g4f
-messages = [
-    {
-        "role": "system",
-        "content": PERSONA,
-    },
-]
+system_prompt = {
+    "role": "system",
+    "content": PERSONA
+}
+messages = []
 
 
 #   <GENERATING MESSAGES>   #
@@ -23,11 +22,13 @@ def gpt4free(input_text, provider, model="gpt-3.5-turbo"):
         "role": "user",
         "content": input_text
     })
+    messages.append(system_prompt)
     response = g4f.ChatCompletion.create(
         model=model,
         messages=messages,
         provider=provider
     )
+    messages.pop()
 
     if ALLOW_MEMORY:
         messages.append({
@@ -48,12 +49,24 @@ def generate_ai_message(message):
     providers = [
         g4f.Provider.DeepAi,
         g4f.Provider.AItianhu,
+        g4f.Provider.Aichat,
+        g4f.Provider.GetGpt,
+        g4f.Provider.EasyChat,
+        g4f.Provider.Acytoo,
+        g4f.Provider.DfeHub,
+        g4f.Provider.AiService,
+        g4f.Provider.BingHuan,
+        g4f.Provider.Wewordle,
+        g4f.Provider.ChatgptAi,
+        g4f.Provider.H2o,
     ]
 
     for provider in providers:
         try:
             output_text = gpt4free(input_text, provider)
-            if output_text is not None or output_text != "":
+            if output_text is None or " is not working" in output_text or output_text == "":
+                continue
+            else:
                 break
         except Exception as e:
             continue
