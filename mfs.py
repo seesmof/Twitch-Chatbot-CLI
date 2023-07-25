@@ -49,30 +49,14 @@ def generate_ai_message(message):
         g4f.Provider.DeepAi,
         g4f.Provider.AItianhu,
     ]
-    fallback_models = [
-        "falcon-40b",
-        "falcon-7b",
-        "llama-13b",
-    ]
-    fallback_provider = g4f.Provider.H2o
-    output_text = None
 
     for provider in providers:
         try:
             output_text = gpt4free(input_text, provider)
-            break
-        except Exception as e:
-            print(f"Exception occurred for provider {provider}: {e}")
-            continue
-
-    if output_text is None:
-        for model in fallback_models:
-            try:
-                output_text = gpt4free(input_text, fallback_provider, model)
+            if output_text is not None or output_text != "":
                 break
-            except Exception as e:
-                print(f"Exception occurred for fallback model {model}: {e}")
-                continue
+        except Exception as e:
+            continue
 
     end_time = time.time()
     elapsed_time = end_time - start_time
