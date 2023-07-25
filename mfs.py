@@ -8,45 +8,34 @@ import re
 
 from vars import *
 import g4f
-if ALLOW_MEMORY:
-    messages = [
-        {
-            "role": "system",
-            "content": PERSONA,
-        },
-    ]
+messages = [
+    {
+        "role": "system",
+        "content": PERSONA,
+    },
+]
 
 
 #   <GENERATING MESSAGES>   #
 
 def gpt4free(input_text, provider, model="gpt-3.5-turbo"):
-    if ALLOW_MEMORY:
-        messages.append({
-            "role": "user",
-            "content": input_text
-        })
-
-    if ALLOW_MEMORY:
-        response = g4f.ChatCompletion.create(
-            model=model,
-            messages=messages,
-            provider=provider
-        )
-    else:
-        response = g4f.ChatCompletion.create(
-            model=model,
-            messages=[{
-                "role": "user",
-                "content": input_text
-            }],
-            provider=provider
-        )
+    messages.append({
+        "role": "user",
+        "content": input_text
+    })
+    response = g4f.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        provider=provider
+    )
 
     if ALLOW_MEMORY:
         messages.append({
             "role": "assistant",
             "content": response,
         })
+    else:
+        messages.pop()
 
     return clean_text(response)
 
@@ -57,8 +46,8 @@ def generate_ai_message(message):
     input_text = input_text.replace("@", "")
 
     providers = [
+        g4f.Provider.DeepAi,
         g4f.Provider.AItianhu,
-        g4f.Provider.DeepAi
     ]
     fallback_models = [
         "falcon-40b",
