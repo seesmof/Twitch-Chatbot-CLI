@@ -78,9 +78,9 @@ def generate_ai_message(message):
     elapsed_time = end_time - start_time
     print(f"\nGenerated in {elapsed_time:.2f} seconds")
 
-    if (detect(input_text) == "ua" or detect(input_text) == "ru") and detect(output_text) != "ua":
+    if (detect(input_text) == "uk" or detect(input_text) == "ru") and detect(output_text) != "uk":
         output_text = GoogleTranslator(
-            source='auto', target='ua').translate(output_text)
+            source='auto', target='uk').translate(output_text)
     return output_text
 
 
