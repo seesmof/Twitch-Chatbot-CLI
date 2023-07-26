@@ -106,28 +106,6 @@ def split_long_gpt(input_string):
     return substrings
 
 
-async def send_split_gpt(ctx, message):
-    substrings_list = split_long_gpt(message)
-    for substring in substrings_list:
-        await ctx.channel.send(substring)
-        await asyncio.sleep(2)
-
-
-def split_long_message(input_string):
-    words = input_string.split()
-    result = []
-    for i in range(0, len(words), 10):
-        result.append(" ".join(words[i:i+10]))
-    return result
-
-
-async def send_split_message(ctx, message):
-    substrings_list = split_long_message(message)
-    for substring in substrings_list:
-        await ctx.channel.send(substring)
-        await asyncio.sleep(6)
-
-
 def check_for_letters(text, letters):
     for letter in letters:
         if letter in text:
