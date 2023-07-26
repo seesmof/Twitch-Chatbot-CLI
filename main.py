@@ -23,15 +23,14 @@ class Bot(commands.Bot):
 
                     print(
                         f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n")
+                    if LOGGING:
+                        write_to_log(message.content, message.author.name,
+                                     message.channel.name, output_text)
 
                     split_text = split_long_gpt(output_text)
                     for substr in split_text:
                         await message.channel.send(f"{substr} @{message.author.name}")
                         await asyncio.sleep(DELAY)
-
-                if LOGGING:
-                    write_to_log(message.content, message.author.name,
-                                 message.channel.name)
         except Exception as e:
             pass
 

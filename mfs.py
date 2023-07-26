@@ -5,6 +5,7 @@ from deep_translator import GoogleTranslator
 import os
 from langdetect import detect
 import re
+import json
 
 from vars import *
 import g4f
@@ -134,16 +135,24 @@ def check_for_letters(text, letters):
     return False
 
 
-def write_to_log(message, author, CHANNEL):
+def write_to_log(input_message, author, channel, output_message):
     now = datetime.now()
-    file_name = CHANNEL + "-log_" + now.strftime("%d-%m-%Y") + ".md"
+    file_name = f"{channel}_{now.strftime('%d-%m-%Y')}.json"
     file_path = os.path.join(log_dir, file_name)
+
+    log_data = {
+        'PROMPT': input_message,
+        'RESPONSE': output_message,
+        'USER': author,
+        'CHANNEL': channel,
+        'TIME': now.strftime("%H:%M:%S"),
+        'LOGGING': LOGGING,
+        'DELAY': DELAY,
+        'ALLOW_MEMORY': ALLOW_MEMORY,
+    }
 
     try:
         with open(file_path, "a", encoding="utf-8") as log_file:
-            timestamp = datetime.now().strftime('%H:%M:%S')
-            log_file.write(timestamp)
-            log_file.write(f"\n\n{author}: {message}\n")
-            log_file.write(f"\n---\n\n")
-    except:
-        print(f"Could not write to {file_path}")
+            log_file.write(json.dumps(log_data) + "\n")
+    except IOError as e:
+        print(f"Could not write to {file_path}: {e}")
