@@ -7,7 +7,7 @@
 
 ### Автоматичне
 
-1. Завантажте архів [package](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.1.zip), потім розархівуйте його до вашої системи.
+1. Завантажте архів [package](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.2.zip), потім розархівуйте його до вашої системи.
 
 2. Перейдіть за [посиланням](https://twitchtokengenerator.com/), виберіть опцію `Bot Chat Token`, коли з'явиться відповідний діалог, і скопіюйте значення `Access Token`.
 
@@ -21,7 +21,7 @@
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-Або перейдіть за цим [посиланням](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.1.zip) і розархівуйте архів до вашої системи.
+Або перейдіть за цим [посиланням](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.2.zip) і розархівуйте архів до вашої системи.
 
 2. Встановіть необхідні залежності, виконавши в консолі наступну команду
 
