@@ -19,35 +19,49 @@ print(Fore.BLUE + Style.BRIGHT + """
 """ + Style.RESET_ALL)
 
 print("Welcome to the Twitch Chatbot config wizard!")
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* We will walk you through the setup process below, so you don't have to do it yourself" + Style.RESET_ALL)
 
 # Token
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter your bot's access token: **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Access Token value that you got from step 2 in README.md" + Style.RESET_ALL)
 token = input("> ")
 
 # Nickname
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter your bot's nickname (no @): **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Twitch account name that you will use as your bot, no special characters" + Style.RESET_ALL)
 nickname = input("> ")
 
 # Delay
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter a delay between bot messages in seconds: **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* An integer, no decimals" + Style.RESET_ALL)
 delay = float(input("> "))
 
 # Channels
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter comma-separated channels for bot to join: **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* As such: channelOne, ChannelTwo, ChannelThree, ..." + Style.RESET_ALL)
 channels = input("> ").split(",")
 
 # Block users
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter comma-separated users to block: **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* As such: UserOne, UserTwo, UserThree, ..." + Style.RESET_ALL)
 blocked = input("> ").split(",")
 
 # Enable memory
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enable conversation memory? **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Enter Yes or No" + Style.RESET_ALL)
 print(Fore.GREEN + "Yes" + Style.RESET_ALL)
 print("No")
 choice = input("> ")
@@ -59,6 +73,8 @@ else:
 # Enable logging
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enable logging to file? **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Enter Yes or No" + Style.RESET_ALL)
 print(Fore.GREEN + "Yes" + Style.RESET_ALL)
 print("No")
 choice = input("> ")
@@ -70,6 +86,8 @@ else:
 # Set persona
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enter a persona from personas.py or leave blank: **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Check personas.md for a full list of pre-defined personas. Or, write your own prompt" + Style.RESET_ALL)
 persona = input("> ")
 
 
