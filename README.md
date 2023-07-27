@@ -12,6 +12,8 @@
 - [About](#about)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+  - [Automatic](#automatic)
+  - [Manual](#manual)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -26,6 +28,16 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 - Make sure you know how to work with and run commands in console
 
 ## Installation
+
+### Automatic
+
+1. Download [package](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.1.zip), then unzip the archive onto your system.
+
+2. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the `Access Token` value.
+
+3. Run `setup.py` file. This will set all the necessary variables, dependencies, etc. for you. After that you can either choose to add the script to autorun on every system start or manually run `main.py` whenever you want your bot to start working.
+
+### Manual
 
 1. Clone the repository by running
 
