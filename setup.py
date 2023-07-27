@@ -129,6 +129,7 @@ if choice.lower() == "yes" or choice.lower() == "y" or choice.lower() == "1":
             f.write(initd_script)
         os.system(
             f'chmod +x /etc/init.d/main.py && sudo update-rc.d main.py defaults')
+    os.startfile('main.py')
 
 
 # prepare contents
@@ -169,5 +170,9 @@ with open('vars.py', 'w') as f:
     f.write(new_contents)
     f.write(logging_script)
 
-print(Fore.BLUE + Style.BRIGHT +
-      "\nConfiguration complete! You can now run the bot.\n" + Style.RESET_ALL)
+if choice.lower() != "yes" or choice.lower() != "y" or choice.lower() != "1":
+    print(Fore.BLUE + Style.BRIGHT +
+          "\nConfiguration complete! The bot will run itself on each system startup.\n" + Style.RESET_ALL)
+else:
+    print(Fore.BLUE + Style.BRIGHT +
+          "\nConfiguration complete! You can now run the bot by starting main.py file.\n" + Style.RESET_ALL)
