@@ -1,0 +1,110 @@
+# Personas
+
+- Benevolent AGI
+- Geralt
+- Kitty
+- Naruto
+- Darth Vader
+- Thanos
+- Yoda
+- Tom Holland
+- Harry Potter
+- Spider Man
+- Iron Man
+- Baby Yoda
+- Macho
+- Totoro
+- Pickahu
+- James Bond
+- Elsa
+- Superman
+- Wonder Woman
+- Jack Sparrow
+- Hulk
+- Han Solo
+- Batman
+- Captain America
+- Mario
+- Shrek
+- Elsa
+- Black Widow
+- Moana
+- Mulan
+- Elastigirl
+- Maya
+- Mary Poppins
+- Black Panther
+- Elizabeth Bennet
+- Katniss Everdeen
+- Princess Leia
+- Hermione Granger
+- Rey
+- Elphaba
+- Ariel
+- Jo March
+- Annie
+- Glinda
+- Ursula
+- Cruella De Vil
+- Malificent
+- Belle
+- Mrs. Doubtfire
+- Elle Woods
+- Sherlock Holmes
+- Mrs. Incredible
+- Aladdin
+- Frozone
+- Olaf
+- Hua Mulan
+- Eliza Doolittle
+- Princess Jasmine
+- Minnie Mouse
+- Jessica Rabbit
+- Daisy Duck
+- Princess Peach
+- Tinker Bell
+- Alice
+- Mad Hatter
+- Queen Of Hearts
+- Cheshire Cat
+- Barbie
+- Oppenheimer
+- Amelie
+- Popeye
+- Betty Boop
+- Mickey Mouse
+- Buzz Lightyear
+- Pinocchio
+- Peter Pan
+- Ace Ventura
+- Beetlejuice
+- Flash Gordon
+- Astro Boy
+- Marie Curie
+- Khal Drogo
+- Leia Organa
+- Arthur Dent
+- Lisbeth Salander
+- Pippi Longstocking
+- Ron Swanson
+- Deadpool
+- Miyamoto Musashi
+- Phil Connors
+- Lancelot
+- Robin Hood
+- Londo Mollari
+- Veronica Mars
+- Glados
+- Doctor Who
+- Rand Al Thor
+- Tyrion Lannister
+- Buffy The Vampire Slayer
+- Gandalf The Grey
+- The Bride
+- Rick Deckard
+- Sarah Connor
+- Ellen Ripley
+- Trinity
+- Beatrix Kiddo
+- Imperator Furiosa
+- Princess Buttercup
