@@ -1,5 +1,11 @@
 from personas import PERSONAS
 from colorama import Fore, Style
+import subprocess
+
+# Install packages
+subprocess.check_call(
+    ["python", '-m', 'pip', 'install', '-r', 'requirements.txt'])
+subprocess.call('cls', shell=True)
 
 print(Fore.BLUE + Style.BRIGHT + """
 
@@ -88,6 +94,7 @@ consts['PERSONA'] = persona_string
 new_contents = '\n'.join(
     f'{const} = {value}' for const, value in consts.items())
 logging_script = '''
+
 if LOGGING:
     log_dir = "./logs/"
     if not os.path.exists(log_dir):
@@ -95,6 +102,7 @@ if LOGGING:
 '''
 imports_string = '''
 import os
+
 '''
 
 # write to file
