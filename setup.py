@@ -1,6 +1,8 @@
 from personas import PERSONAS
 from colorama import Fore, Style
 import subprocess
+import os
+import platform
 
 # Install packages
 subprocess.check_call(
@@ -45,14 +47,14 @@ delay = float(input("> "))
 
 # Channels
 print(Fore.YELLOW + Style.BRIGHT +
-      "\n** Enter comma-separated channels for bot to join: **" + Style.RESET_ALL)
+      "\n** Enter comma-separated channels for bot to join or leave blank: **" + Style.RESET_ALL)
 print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
       "* As such: channelOne, ChannelTwo, ChannelThree, ..." + Style.RESET_ALL)
 channels = input("> ").split(",")
 
 # Block users
 print(Fore.YELLOW + Style.BRIGHT +
-      "\n** Enter comma-separated users to block: **" + Style.RESET_ALL)
+      "\n** Enter comma-separated users to block or leave blank: **" + Style.RESET_ALL)
 print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
       "* As such: UserOne, UserTwo, UserThree, ..." + Style.RESET_ALL)
 blocked = input("> ").split(",")
@@ -61,7 +63,7 @@ blocked = input("> ").split(",")
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enable conversation memory? **" + Style.RESET_ALL)
 print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
-      "* Enter Yes or No" + Style.RESET_ALL)
+      "* Enter Yes or No. Allows the bot to remember previous messages" + Style.RESET_ALL)
 print(Fore.GREEN + "Yes" + Style.RESET_ALL)
 print("No")
 choice = input("> ")
@@ -74,7 +76,7 @@ else:
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enable logging to file? **" + Style.RESET_ALL)
 print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
-      "* Enter Yes or No" + Style.RESET_ALL)
+      "* Enter Yes or No. Writes every query to bot into logs" + Style.RESET_ALL)
 print(Fore.GREEN + "Yes" + Style.RESET_ALL)
 print("No")
 choice = input("> ")
@@ -89,6 +91,44 @@ print(Fore.YELLOW + Style.BRIGHT +
 print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
       "* Check personas.md for a full list of pre-defined personas. Or, write your own prompt" + Style.RESET_ALL)
 persona = input("> ")
+
+# Autorun main.py
+print(Fore.YELLOW + Style.BRIGHT +
+      "\n** Autorun main.py on every system startup? **" + Style.RESET_ALL)
+print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
+      "* Enter Yes or No. If yes is selected, the bot will run itself each time your system starts" + Style.RESET_ALL)
+print(Fore.GREEN + "Yes" + Style.RESET_ALL)
+print("No")
+choice = input("> ")
+if choice.lower() == "yes" or choice.lower() == "y" or choice.lower() == "1":
+    if platform.system() == 'Windows':
+        # Windows - creates a shortcut in the Startup directory
+        os.system(
+            f'copy main.py "%USERPROFILE%/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup"')
+    elif platform.system() == 'Darwin':
+        # MacOS - creates a .plist file in ~/Library/LaunchAgents
+        os.system(f"""echo '<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+            <dict>
+                <key>Label</key>
+                <string>com.main.py.autostart</string>
+                <key>Program</key>
+                <string>/usr/local/bin/python3 {os.getcwd()}/main.py</string>
+                <key>RunAtLoad</key>
+                <true/>
+            </dict>
+        </plist>' > ~/Library/LaunchAgents/com.main.py.autostart.plist""")
+    elif platform.system() == 'Linux':
+        # Linux - creates an init.d script
+        initd_script = '''#!/bin/bash
+        /usr/bin/python3 {os.getcwd()}/main.py
+        '''
+
+        with open('/etc/init.d/main.py', 'w') as f:
+            f.write(initd_script)
+        os.system(
+            f'chmod +x /etc/init.d/main.py && sudo update-rc.d main.py defaults')
 
 
 # prepare contents
