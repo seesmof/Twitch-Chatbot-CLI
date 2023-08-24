@@ -14,11 +14,13 @@ class Bot(commands.Bot):
 
     async def event_message(self, message):
         try:
+            if message.author.name.lower() == BOT_NICK.lower() or message.author.name in BLOCKED_USERS:
+                return
             async with self.lock:
                 letters = [f"@{BOT_NICK}"]
                 output_text = ""
 
-                if check_for_letters(message.content.lower(), letters) and message.author.name != BOT_NICK and message.author.name not in BLOCKED_USERS:
+                if check_for_letters(message.content.lower(), letters):
                     output_text = generate_ai_message(message.content)
 
                     print(
