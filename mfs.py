@@ -18,7 +18,7 @@ messages = []
 
 #   <GENERATING MESSAGES>   #
 
-def gpt4free(input_text):
+def simpleGPT(input_text):
     messages.append({
         "role": "user",
         "content": input_text
@@ -42,10 +42,10 @@ def gpt4free(input_text):
     return clean_text(response)
 
 
-def generate_ai_message(message):
+def generate_simple_ai(message):
     input_text = message.replace(f"{BOT_NICK}", "")
     input_text = input_text.replace("@", "")
-    output_text = generate_ai_message(input_text)
+    output_text = simpleGPT(input_text)
     if (detect(input_text) == "uk" or detect(input_text) == "ru") and detect(output_text) != "uk":
         output_text = GoogleTranslator(
             source='auto', target='uk').translate(output_text)
@@ -53,6 +53,7 @@ def generate_ai_message(message):
 
 
 # Below are supplementary functions, just leave them as they are, unless you know what you're doing
+
 
 def clean_text(text):
     text = re.sub(r'http\S+', '', text)
