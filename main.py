@@ -21,7 +21,7 @@ class Bot(commands.Bot):
                 output_text = ""
 
                 if check_for_letters(message.content.lower(), letters):
-                    output_text = simpleGPT(message.content)
+                    output_text = AI(message.content)
 
                     print(
                         f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n")
