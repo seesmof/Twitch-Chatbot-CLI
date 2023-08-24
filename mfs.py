@@ -18,16 +18,16 @@ messages = []
 
 #   <GENERATING MESSAGES>   #
 
-def gpt4free(input_text, provider, model="gpt-3.5-turbo"):
+def gpt4free(input_text):
     messages.append({
         "role": "user",
         "content": input_text
     })
     messages.append(system_prompt)
     response = g4f.ChatCompletion.create(
-        model=model,
+        model="gpt-3.5-turbo",
         messages=messages,
-        provider=provider
+        provider=g4f.Provider.DeepAi
     )
     messages.pop()
 
@@ -43,39 +43,9 @@ def gpt4free(input_text, provider, model="gpt-3.5-turbo"):
 
 
 def generate_ai_message(message):
-    start_time = time.time()
     input_text = message.replace(f"{BOT_NICK}", "")
     input_text = input_text.replace("@", "")
-
-    providers = [
-        g4f.Provider.DeepAi,
-        g4f.Provider.AItianhu,
-        g4f.Provider.Aichat,
-        g4f.Provider.GetGpt,
-        g4f.Provider.EasyChat,
-        g4f.Provider.Acytoo,
-        g4f.Provider.DfeHub,
-        g4f.Provider.AiService,
-        g4f.Provider.BingHuan,
-        g4f.Provider.Wewordle,
-        g4f.Provider.ChatgptAi,
-        g4f.Provider.H2o,
-    ]
-
-    for provider in providers:
-        try:
-            output_text = gpt4free(input_text, provider)
-            if output_text is None or " is not working" in output_text or output_text == "":
-                continue
-            else:
-                break
-        except Exception as e:
-            continue
-
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f"\nGenerated in {elapsed_time:.2f} seconds")
-
+    output_text = generate_ai_message(input_text)
     if (detect(input_text) == "uk" or detect(input_text) == "ru") and detect(output_text) != "uk":
         output_text = GoogleTranslator(
             source='auto', target='uk').translate(output_text)
