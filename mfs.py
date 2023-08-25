@@ -16,8 +16,6 @@ system_prompt = {
 messages = []
 
 
-#   <GENERATING MESSAGES>   #
-
 def AI(input_text):
     messages.append({
         "role": "user",
@@ -40,9 +38,6 @@ def AI(input_text):
         messages.pop()
 
     return clean_text(response)
-
-
-# Below are supplementary functions, just leave them as they are, unless you know what you're doing
 
 
 def clean_text(text):

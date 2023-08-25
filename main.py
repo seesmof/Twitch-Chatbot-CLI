@@ -14,7 +14,7 @@ class Bot(commands.Bot):
 
     async def event_message(self, message):
         try:
-            if message.author.name.lower() == BOT_NICK.lower() or message.author.name in BLOCKED_USERS:
+            if message.author.name.lower() == BOT_NICK.lower() or check_for_letters(message.author.name.lower(), BLOCKED_USERS):
                 return
             async with self.lock:
                 letters = [f"@{BOT_NICK}"]
