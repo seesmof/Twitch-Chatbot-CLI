@@ -19,7 +19,7 @@ class Bot(commands.Bot):
                 output_text = ""
 
                 if check_for_letters(message.content.lower(), letters):
-                    if message.author.name == BOT_NICK or message.author.name in BLOCKED_USERS:
+                    if message.author.name == BOT_NICK or check_for_letters(message.author.name, BLOCKED_USERS):
                         return
                     output_text = AI(message.content)
 
