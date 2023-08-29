@@ -38,7 +38,6 @@ def AI(input_text):
         })
     else:
         messages.pop()
-
     return clean_text(response)
 
 
