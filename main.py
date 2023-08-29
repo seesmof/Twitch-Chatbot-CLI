@@ -15,12 +15,12 @@ class Bot(commands.Bot):
     async def event_message(self, message):
         try:
             async with self.lock:
+                if message.author.name == BOT_NICK:
+                    return
                 letters = [f"@{BOT_NICK}"]
                 output_text = ""
 
                 if check_for_letters(message.content.lower(), letters):
-                    if message.author.name == BOT_NICK or check_for_letters(message.author.name, BLOCKED_USERS):
-                        return
                     output_text = AI(message.content)
 
                     print(

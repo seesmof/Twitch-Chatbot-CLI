@@ -52,13 +52,6 @@ print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
       "* As such: channelOne, ChannelTwo, ChannelThree, ..." + Style.RESET_ALL)
 channels = input("> ").split(",")
 
-# Block users
-print(Fore.YELLOW + Style.BRIGHT +
-      "\n** Enter comma-separated users to block or leave blank: **" + Style.RESET_ALL)
-print(Fore.LIGHTBLACK_EX + Style.BRIGHT +
-      "* As such: UserOne, UserTwo, UserThree, ..." + Style.RESET_ALL)
-blocked = input("> ").split(",")
-
 # Enable memory
 print(Fore.YELLOW + Style.BRIGHT +
       "\n** Enable conversation memory? **" + Style.RESET_ALL)
@@ -137,7 +130,6 @@ consts = {
     'BOT_NICK': f'"{nickname}"',
     'DELAY': delay,
     'WANTED_CHANNELS': "[" + ', '.join(f'"{channel.strip()}"' for channel in channels) + "]",
-    'BLOCKED_USERS': "[" + ', '.join(f'"{user.strip()}"' for user in blocked) + "]",
     'ALLOW_MEMORY': bool(memory),
     'LOGGING': bool(logging),
 }

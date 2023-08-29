@@ -16,12 +16,6 @@ WANTED_CHANNELS = [
     "addMoreIfNeeded",
 ]
 
-# CAUTION: enter the users you don't want your bot to answer to. useful for preventing answering to other bots or just unwanted individuals using your bot.
-BLOCKED_USERS = [
-    "dontReplyToThisUser",
-    "andThisOneToo",
-]
-
 # whether to allow the bot to have a memory of the previous chat messages. possible values are either True or False. set to True by default
 ALLOW_MEMORY = True
 
