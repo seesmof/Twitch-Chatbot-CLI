@@ -20,15 +20,11 @@ def AI(input_text):
         "content": input_text
     })
     messages.append(system_prompt)
-    try:
-        response = g4f.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            provider=g4f.Provider.DeepAi
-        )
-    except Exception as e:
-        print(f"\n{e}\n")
-        response = "Whoops... Something went wrong"
+    response = g4f.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        provider=g4f.Provider.DeepAi
+    )
     messages.pop()
 
     if ALLOW_MEMORY:
