@@ -1,14 +1,12 @@
 import asyncio
 from datetime import datetime
 import time
-from deep_translator import GoogleTranslator
 import os
-from langdetect import detect
 import re
 import json
-
-from vars import *
 import g4f
+from vars import *
+
 system_prompt = {
     "role": "system",
     "content": PERSONA
@@ -22,11 +20,15 @@ def AI(input_text):
         "content": input_text
     })
     messages.append(system_prompt)
-    response = g4f.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        provider=g4f.Provider.DeepAi
-    )
+    try:
+        response = g4f.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            provider=g4f.Provider.DeepAi
+        )
+    except Exception as e:
+        print(f"\n{e}\n")
+        response = "Whoops... Something went wrong"
     messages.pop()
 
     if ALLOW_MEMORY:
