@@ -23,7 +23,7 @@ def AI(input_text):
     response = g4f.ChatCompletion.create(
         model=g4f.models.default,
         messages=messages,
-        provider=g4f.Provider.Bing
+        provider=g4f.Provider.DeepAi
     )
     messages.pop()
 
