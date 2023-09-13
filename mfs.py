@@ -21,9 +21,9 @@ def AI(input_text):
     })
     messages.append(system_prompt)
     response = g4f.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model=g4f.models.default,
         messages=messages,
-        provider=g4f.Provider.DeepAi
+        provider=g4f.Provider.Bing
     )
     messages.pop()
 

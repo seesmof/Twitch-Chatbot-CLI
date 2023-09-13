@@ -17,11 +17,9 @@ class Bot(commands.Bot):
             async with self.lock:
                 if message.author.name == BOT_NICK:
                     return
-                letters = [f"@{BOT_NICK}"]
-                output_text = ""
 
-                if check_for_letters(message.content.lower(), letters):
-                    output_text = AI(message.content)
+                if BOT_NICK in message.content:
+                    output_text = AI(clean_text(message.content))
 
                     print(
                         f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n")
