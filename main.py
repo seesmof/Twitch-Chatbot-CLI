@@ -1,16 +1,20 @@
 from twitchio.ext import commands
+import twitchio
 from mfs import *
 
 
 class Bot(commands.Bot):
     def __init__(self):
-        super().__init__(token=TOKEN,
-                         prefix='!', initial_channels=WANTED_CHANNELS)
+        super().__init__(
+            token=TOKEN,
+            prefix="!",
+            initial_channels=WANTED_CHANNELS,
+        )
         self.lock = asyncio.Lock()
 
     async def event_ready(self):
-        print(f'Logged in as | {self.nick}')
-        print(f'User id is | {self.user_id}')
+        print(f"Logged in as | {self.nick}")
+        print(f"User id is | {self.user_id}")
 
     async def event_message(self, message):
         try:
@@ -19,13 +23,18 @@ class Bot(commands.Bot):
                     return
 
                 if BOT_NICK in message.content:
-                    output_text = AI(clean_text(message.content))
+                    output_text = clean_text(AI(message.content))
 
                     print(
-                        f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n")
+                        f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n"
+                    )
                     if LOGGING:
-                        write_to_log(message.content, message.author.name,
-                                     message.channel.name, output_text)
+                        write_to_log(
+                            message.content,
+                            message.author.name,
+                            message.channel.name,
+                            output_text,
+                        )
 
                     split_text = split_long_gpt(output_text)
                     for substr in split_text:

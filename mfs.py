@@ -7,46 +7,43 @@ import json
 import g4f
 from vars import *
 
-system_prompt = {
-    "role": "system",
-    "content": PERSONA
-}
+system_prompt = {"role": "system", "content": PERSONA}
 messages = []
 
 
 def AI(input_text):
-    messages.append({
-        "role": "user",
-        "content": input_text
-    })
+    messages.append({"role": "user", "content": input_text})
     messages.append(system_prompt)
     response = g4f.ChatCompletion.create(
         model=g4f.models.default,
         messages=messages,
-        provider=g4f.Provider.DeepAi
+        stream=False,
+        timeout=5,
     )
     messages.pop()
 
     if ALLOW_MEMORY:
-        messages.append({
-            "role": "assistant",
-            "content": response,
-        })
+        messages.append(
+            {
+                "role": "assistant",
+                "content": response,
+            }
+        )
     else:
         messages.pop()
     return clean_text(response)
 
 
 def clean_text(text):
-    text = re.sub(r'http\S+', '', text)
-    text = re.sub(r'www\S+', '', text)
-    text = re.sub(r'\[.*?\]', '', text)
-    text = re.sub(r'\".*?\"', '', text)
-    text = re.sub(r'\*', '', text)
-    text = re.sub(r'\n', ' ', text)
-    text = re.sub(r'user: ', '', text, flags=re.I)
-    text = re.sub(r'system: ', '', text, flags=re.I)
-    text = re.sub(r'assistant: ', '', text, flags=re.I)
+    text = re.sub(r"http\S+", "", text)
+    text = re.sub(r"www\S+", "", text)
+    text = re.sub(r"\[.*?\]", "", text)
+    text = re.sub(r"\".*?\"", "", text)
+    text = re.sub(r"\*", "", text)
+    text = re.sub(r"\n", " ", text)
+    text = re.sub(r"user: ", "", text, flags=re.I)
+    text = re.sub(r"system: ", "", text, flags=re.I)
+    text = re.sub(r"assistant: ", "", text, flags=re.I)
     text = text.replace(" : ", "")
     text = text.replace(f"{BOT_NICK}", "")
     text = text.replace(f"@", "")
@@ -54,10 +51,10 @@ def clean_text(text):
 
 
 def split_long_gpt(input_string):
-    num_substrings = len(input_string) // 440 + \
-        (1 if len(input_string) % 440 > 0 else 0)
-    substrings = [input_string[i * 440:(i + 1) * 440]
-                  for i in range(num_substrings)]
+    num_substrings = len(input_string) // 440 + (
+        1 if len(input_string) % 440 > 0 else 0
+    )
+    substrings = [input_string[i * 440 : (i + 1) * 440] for i in range(num_substrings)]
     return substrings
 
 
@@ -74,14 +71,14 @@ def write_to_log(input_message, author, channel, output_message):
     file_path = os.path.join(log_dir, file_name)
 
     log_data = {
-        'PROMPT': input_message,
-        'RESPONSE': output_message,
-        'USER': author,
-        'CHANNEL': channel,
-        'TIME': now.strftime("%H:%M:%S"),
-        'LOGGING': LOGGING,
-        'DELAY': DELAY,
-        'ALLOW_MEMORY': ALLOW_MEMORY,
+        "PROMPT": input_message,
+        "RESPONSE": output_message,
+        "USER": author,
+        "CHANNEL": channel,
+        "TIME": now.strftime("%H:%M:%S"),
+        "LOGGING": LOGGING,
+        "DELAY": DELAY,
+        "ALLOW_MEMORY": ALLOW_MEMORY,
     }
 
     try:

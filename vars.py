@@ -11,10 +11,7 @@ BOT_NICK = ""
 DELAY = 20  # in seconds
 
 # enter the channel names you want your bot to work in
-WANTED_CHANNELS = [
-    "replaceWithYourChannelName",
-    "addMoreIfNeeded",
-]
+WANTED_CHANNELS = []
 
 # whether to allow the bot to have a memory of the previous chat messages. possible values are either True or False. set to True by default
 ALLOW_MEMORY = True
