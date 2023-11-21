@@ -31,7 +31,7 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 
 ### Automatic
 
-1. Download [package](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.2.zip), then unzip the archive onto your system.
+1. Download [package](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.3.2.zip), then unzip the archive onto your system.
 
 2. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the `Access Token` value.
 
@@ -45,7 +45,7 @@ This is a simple Twitch chatbot that generates messages using AI. The bot listen
 git clone https://github.com/seesmof/twitch-ai-chatbot.git
 ```
 
-Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.2.2.zip), then unzip the archive onto your system.
+Or click this [link](https://github.com/seesmof/twitch-ai-chatbot/archive/refs/tags/1.3.2.zip), then unzip the archive onto your system.
 
 2. Install the required dependencies by running
 
