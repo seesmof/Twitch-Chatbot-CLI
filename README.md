@@ -11,13 +11,8 @@
 ### Table of contents
 
 - [Table of contents](#table-of-contents)
-- [Screenshots](#screenshots)
 - [Links](#links)
 - [License](#license)
-
-### Screenshots
-
-![App](./public/app.png)
 
 ### Links
 
