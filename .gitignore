@@ -23,7 +23,6 @@ next-env.d.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/docs
 *.pdf
 npm-debug.log*
 yarn-debug.log*
@@ -31,4 +30,3 @@ yarn-error.log*
 .pnp
 .pnp.js
 __pycache__
-test.py
