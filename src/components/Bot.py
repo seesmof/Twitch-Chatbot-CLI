@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.traceback import install
 
-from classes.TwitchAgent import TwitchAgent
+from components.TwitchAgent import TwitchAgent
 
 install()
 console = Console()
