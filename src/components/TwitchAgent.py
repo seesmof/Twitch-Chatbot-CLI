@@ -1,4 +1,9 @@
 from twitchio.ext import commands
+from rich.console import Console
+from rich.traceback import install
+
+install()
+console = Console()
 
 
 class TwitchAgent(commands.Bot):
@@ -9,8 +14,15 @@ class TwitchAgent(commands.Bot):
             initial_channels=channels,
         )
 
-    def start(self):
-        pass
+    async def event_ready(self):
+        console.log("[green]Bot connected![/]")
 
-    def stop(self):
-        pass
+    async def event_message(self, message):
+        console.log()
+        await self.handle_commands(message)
+
+    async def start(self):
+        await self.start()
+
+    async def stop(self):
+        await self.close()

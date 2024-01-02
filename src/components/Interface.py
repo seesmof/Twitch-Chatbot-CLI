@@ -3,11 +3,13 @@ import inquirer
 from rich.markdown import Markdown as md
 from rich.console import Console
 from rich.traceback import install
+from components.Bot import Bot
 
 from utils.misc import openLiveChatWindow
 
 install()
 console = Console()
+bot = Bot()
 
 
 @shell(prompt="> ")
@@ -33,11 +35,13 @@ def start() -> None:
     showChatAnswer = inquirer.prompt(showChatQuestion)
 
     openLiveChatWindow(console=console) if showChatAnswer["showChat"] else None
+    bot.start(muteConsole=True)
 
 
 @the_shell.command()
 def stop() -> None:
     # stop the bot and close all live chats
+    bot.stop()
     console.print("Stopping the bot...")
 
 

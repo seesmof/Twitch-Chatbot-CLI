@@ -8,15 +8,15 @@ console = Console()
 
 
 class Bot:
-    def __init__(self, token, prefix, channels):
+    def __init__(self, token=None, prefix="!", channels=[]):
         self.bot: object = TwitchAgent(token, prefix, channels)
         self.isAuthorized: bool = False
 
-    def start(self, muteConsole=False):
+    async def start(self, muteConsole=False):
         try:
             if self.bot.token and self.bot.prefix and self.bot.channels:
                 self.isAuthorized = True
-            self.bot.start() if self.isAuthorized else console.print(
+            await self.bot.start() if self.isAuthorized else console.print(
                 "[red]Not authorized![/]"
             )
         except Exception as e:
@@ -24,9 +24,9 @@ class Bot:
 
         console.print("[green]Bot started![/]") if not muteConsole else None
 
-    def stop(self, muteConsole=False):
+    async def stop(self, muteConsole=False):
         try:
-            self.bot.stop()
+            await self.bot.stop()
         except Exception as e:
             console.log(f"[red]Failed to stop bot: {e}[/]")
 
