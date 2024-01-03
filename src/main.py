@@ -16,8 +16,6 @@ from components.Bot import Bot
 
 install()
 console = Console()
-TOKEN = ""
-CHANNELS = []
 bot = None
 
 
@@ -27,13 +25,30 @@ def the_shell() -> None:
         "Welcome to Twitch AI Chatbot app! Enter 'help' for a list of commands."
     )
 
+    features = loadFeatures()
+    if features["autostart"]:
+        start()
+
 
 @the_shell.command()
 def start() -> None:
-    # start the bot, ask if they want to see live chat
-    # before starting, check if all the variables are in place. if not, prompt to enter all the data first
-    # if yes, start a new terminal window with the live twitch chat
-    console.print("Starting the bot...")
+    global bot
+    credentials = loadConfig()
+    if (
+        credentials["token"] == ""
+        or credentials["username"] == ""
+        or credentials["channels"] == []
+    ):
+        setupCredentials(creds=credentials)
+
+    features = loadFeatures()
+    bot = Bot(
+        token=credentials["token"],
+        channels=credentials["channels"],
+        haveLogging=features["logging"],
+        haveMemory=features["memory"],
+    )
+
     showChatQuestion = [
         inquirer.Confirm(
             "showChat",
@@ -42,33 +57,34 @@ def start() -> None:
         )
     ]
     showChatAnswer = inquirer.prompt(showChatQuestion)
-
     openLiveChatWindow(console=console) if showChatAnswer["showChat"] else None
-    bot.start(muteConsole=True)
+
+    try:
+        bot.run()
+    except Exception as e:
+        return
+
+
+@the_shell.command()
+def stop() -> None:
+    bot.close() if bot else console.print("Bot is not running")
 
 
 @the_shell.command()
 def feats() -> None:
-    # allow user to toggle different features like Memory, Logging, Live Chat, and more
-    """
-    - Logging
-    - Memory
-    - Auto-Start
-    """
     features = loadFeatures()
     features = configureFeatures(features=features)
-    console.print("Restarting the bot...")
 
 
 @the_shell.command()
 def creds() -> None:
-    # allow user to configure the bot
     console.print(
         md(
             "You can get your token [here](https://twitchtokengenerator.com/). Select `Bot Chat Token` and then copy `Access Token` value"
         )
     )
     credentials = loadConfig()
+
     if (
         credentials["token"] != ""
         and credentials["username"] != ""
@@ -90,6 +106,7 @@ def help() -> None:
 Here is a list of available commands:
 
 - start: Start the bot
+- stop: Stop the bot
 - creds: Configure the bot
 - feats: Toggle bot's features
 - help: Show this help message

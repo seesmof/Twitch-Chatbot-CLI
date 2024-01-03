@@ -7,13 +7,11 @@ import json
 
 install()
 console = Console()
+currentDir = path.dirname(path.abspath(__file__))
 
 
 def openLiveChatWindow(console: object) -> None:
     console.print("Live chatting...")
-
-
-currentDir = path.dirname(path.abspath(__file__))
 
 
 def loadConfig() -> dict:
@@ -105,7 +103,7 @@ def changeCredentials(creds: dict) -> dict:
             inquirer.Text(
                 "channels",
                 message="Enter the channels you want to join separated by comma",
-                validate=lambda _, x: x != "" and "," in x,
+                validate=lambda _, x: x != "",
             )
         ]
         answers = inquirer.prompt(questions)
@@ -118,8 +116,6 @@ def changeCredentials(creds: dict) -> dict:
 
 
 def setupCredentials(creds: dict) -> None:
-    credentialsList = [(cred, val) for cred, val in creds.items()]
-
     questions = [
         inquirer.Text(
             "token",
@@ -134,7 +130,7 @@ def setupCredentials(creds: dict) -> None:
         inquirer.Text(
             "channels",
             message="Enter the channels you want to join separated by comma",
-            validate=lambda _, x: x != "" and "," in x,
+            validate=lambda _, x: x != "",
         ),
     ]
     answers = inquirer.prompt(questions)

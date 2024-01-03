@@ -7,18 +7,24 @@ console = Console()
 
 
 class Bot(commands.Bot):
-    def __init__(self, token="", prefix="!", channels=[]):
+    def __init__(
+        self,
+        token="",
+        prefix="!",
+        channels=[],
+        haveMemory: bool = False,
+        haveLogging: bool = False,
+    ):
         super().__init__(token=token, prefix=prefix, initial_channels=channels)
-
-    async def start(self):
-        await self.start()
+        self.haveMemory = haveMemory
+        self.haveLogging = haveLogging
 
     async def restart(self):
         await self.restart()
 
     async def event_ready(self):
-        console.log("[green]Bot connected![/]")
+        console.log(f"[green]Bot connected![/]")
 
     async def event_message(self, message):
-        console.log()
+        console.print(message.content)
         await self.handle_commands(message)
