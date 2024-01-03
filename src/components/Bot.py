@@ -6,15 +6,9 @@ install()
 console = Console()
 
 
-class TwitchAgent(commands.Bot):
+class Bot(commands.Bot):
     def __init__(self, token="", prefix="!", channels=[]):
         super().__init__(token=token, prefix=prefix, initial_channels=channels)
-
-    def setToken(self, token):
-        self.token = token
-
-    def setChannels(self, channels):
-        self.channels = channels
 
     async def start(self):
         await self.start()

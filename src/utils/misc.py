@@ -23,6 +23,12 @@ def loadConfig() -> dict:
         return json.load(f)
 
 
+def saveConfig(creds: dict) -> None:
+    filePath = path.join(currentDir, "..", "..", "data", "config.json")
+    with open(filePath, "w", encoding="utf-8") as f:
+        json.dump(creds, f, indent=2)
+
+
 def loadFeatures() -> dict:
     with open(
         path.join(currentDir, "..", "..", "data", "features.json"),
@@ -53,8 +59,93 @@ def configureFeatures(features: dict) -> None:
         "w",
         encoding="utf-8",
     ) as f:
-        json.dump(features, f, indent=4)
+        json.dump(features, f, indent=2)
 
     console.print("[green]Features configured successfully[/]")
 
     return features
+
+
+def changeCredentials(creds: dict) -> dict:
+    credentialsList = [(cred, val) for cred, val in creds.items()]
+
+    questions = [
+        inquirer.List(
+            "choice",
+            message="What do you want to change?",
+            choices=[cred for cred, _ in credentialsList],
+        )
+    ]
+    answers = inquirer.prompt(questions)
+    answer = answers["choice"]
+    console.print(f"Old value: {creds[answer]}")
+
+    if answer == "token":
+        questions = [
+            inquirer.Text(
+                "token",
+                message="Enter your new Access Token",
+                validate=lambda _, x: x != "",
+            )
+        ]
+        answers = inquirer.prompt(questions)
+        creds["token"] = answers["token"]
+    elif answer == "username":
+        questions = [
+            inquirer.Text(
+                "username",
+                message="Enter your new bot's username",
+                validate=lambda _, x: x != "",
+            )
+        ]
+        answers = inquirer.prompt(questions)
+        creds["username"] = answers["username"]
+    elif answer == "channels":
+        questions = [
+            inquirer.Text(
+                "channels",
+                message="Enter the channels you want to join separated by comma",
+                validate=lambda _, x: x != "" and "," in x,
+            )
+        ]
+        answers = inquirer.prompt(questions)
+        creds["channels"] = answers["channels"].split(",")
+
+    saveConfig(creds)
+    console.print("[green]Credentials changed successfully[/]")
+
+    return creds
+
+
+def setupCredentials(creds: dict) -> None:
+    credentialsList = [(cred, val) for cred, val in creds.items()]
+
+    questions = [
+        inquirer.Text(
+            "token",
+            message="Enter your Access Token",
+            validate=lambda _, x: x != "",
+        ),
+        inquirer.Text(
+            "username",
+            message="Enter your bot's username",
+            validate=lambda _, x: x != "",
+        ),
+        inquirer.Text(
+            "channels",
+            message="Enter the channels you want to join separated by comma",
+            validate=lambda _, x: x != "" and "," in x,
+        ),
+    ]
+    answers = inquirer.prompt(questions)
+    answers["token"] = answers["token"].strip()
+    answers["username"] = answers["username"].strip()
+    answers["channels"] = answers["channels"].split(",")
+
+    for key, value in answers.items():
+        creds[key] = value
+
+    saveConfig(creds)
+    console.print("[green]Credentials configured successfully[/]")
+
+    return creds

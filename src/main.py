@@ -3,17 +3,22 @@ import inquirer
 from rich.markdown import Markdown as md
 from rich.console import Console
 from rich.traceback import install
-from components.Bot import Bot
 
-from utils.misc import configureFeatures, loadFeatures, openLiveChatWindow
+from utils.misc import (
+    changeCredentials,
+    setupCredentials,
+    configureFeatures,
+    loadConfig,
+    loadFeatures,
+    openLiveChatWindow,
+)
 from components.Bot import Bot
 
 install()
 console = Console()
 TOKEN = ""
 CHANNELS = []
-
-bot = Bot(token=TOKEN, channels=CHANNELS)
+bot = None
 
 
 @shell(prompt="> ")
@@ -63,7 +68,18 @@ def creds() -> None:
             "You can get your token [here](https://twitchtokengenerator.com/). Select `Bot Chat Token` and then copy `Access Token` value"
         )
     )
-    console.print("Configuring the bot...")
+    credentials = loadConfig()
+    if (
+        credentials["token"] != ""
+        and credentials["username"] != ""
+        and credentials["channels"] != []
+    ):
+        credentials = changeCredentials(creds=credentials)
+    else:
+        credentials = setupCredentials(creds=credentials)
+
+    global bot
+    bot = Bot(token=credentials["token"], channels=credentials["channels"])
 
 
 @the_shell.command()
