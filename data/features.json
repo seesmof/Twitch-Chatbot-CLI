@@ -1,5 +1,5 @@
 {
-  "memory": 0,
-  "logging": 0,
-  "livechat": 0
+    "memory": true,
+    "logging": true,
+    "autostart": false
 }

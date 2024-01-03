@@ -1,49 +1,30 @@
 from rich.console import Console
 from rich.traceback import install
-
-from components.TwitchAgent import TwitchAgent
+from twitchio.ext import commands
 
 install()
 console = Console()
 
 
-class Bot:
-    def __init__(self, token=None, prefix="!", channels=[]):
-        self.bot: object = TwitchAgent(token, prefix, channels)
-        self.isAuthorized: bool = False
+class TwitchAgent(commands.Bot):
+    def __init__(self, token="", prefix="!", channels=[]):
+        super().__init__(token=token, prefix=prefix, initial_channels=channels)
 
-    async def start(self, muteConsole=False):
-        try:
-            if self.bot.token and self.bot.prefix and self.bot.channels:
-                self.isAuthorized = True
-            await self.bot.start() if self.isAuthorized else console.print(
-                "[red]Not authorized![/]"
-            )
-        except Exception as e:
-            console.log(f"[red]Failed to start bot: {e}[/]")
+    def setToken(self, token):
+        self.token = token
 
-        console.print("[green]Bot started![/]") if not muteConsole else None
+    def setChannels(self, channels):
+        self.channels = channels
 
-    async def stop(self, muteConsole=False):
-        try:
-            await self.bot.stop()
-        except Exception as e:
-            console.log(f"[red]Failed to stop bot: {e}[/]")
+    async def start(self):
+        await self.start()
 
-        console.print("[green]Bot stopped![/]") if not muteConsole else None
+    async def restart(self):
+        await self.restart()
 
-    def _restart(self, muteConsole=False):
-        try:
-            self.stop(muteConsole=True)
-            self.start(muteConsole=True)
-        except Exception as e:
-            console.log(f"[red]Failed to restart bot: {e}[/]")
+    async def event_ready(self):
+        console.log("[green]Bot connected![/]")
 
-        console.print("[green]Bot restarted![/]") if not muteConsole else None
-
-    def config(self, newToken, newPrefix, newChannels):
-        self.bot.token = newToken
-        self.bot.prefix = newPrefix
-        self.bot.channels = newChannels
-        self._restart(muteConsole=True)
-        console.print("[green]Bot config updated![/]")
+    async def event_message(self, message):
+        console.log()
+        await self.handle_commands(message)
