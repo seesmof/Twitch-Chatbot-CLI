@@ -1,5 +1,5 @@
 {
-    "memory": true,
-    "logging": true,
-    "autostart": false
+  "memory": true,
+  "logging": true,
+  "autostart": false
 }
