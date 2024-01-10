@@ -24,6 +24,7 @@ We can have just one window, as I haven't figured out how to open and then close
 - memory
 - persona
 - logging
+- AI model
 
 And if user answers yes we show the menu with ability to change those features and then start the bot. How exactly do we do it is the question though. Do we just ask the user if they would like to edit anything else after they edited some feature and then show the menu again? Probably thats the way. Okay, we'll figure it out later when we get there. So for right now to finally make an MVP we need to just load the credentials, set them to whichever ones work just for testing, and then we start the bot. Here's a brief schematic outline of what i just laid out:
 
