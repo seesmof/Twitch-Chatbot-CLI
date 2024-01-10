@@ -1,77 +1,39 @@
-"""
-We can have one window be opened as a menu for user to toggle all the features on/off, enter their credentials, see the logs and so on. And when the user chooses an option to start the bot, a new terminal window will be opened to start the bot.
-"""
-
-import inquirer
-from click_shell import shell
-from rich.markdown import Markdown as md
+from os import path
 from rich.console import Console
 from rich.traceback import install
 
 install()
 console = Console()
 
+from components.validators import Config, Features
+from components.Bot import Bot
+from utils.misc import readJson
 
-@shell(prompt="> ")
-def the_shell() -> None:
+
+currentDir = path.dirname(path.abspath(__file__))
+configFile = path.join(currentDir, "..", "data", "config.json")
+featuresFile = path.join(currentDir, "..", "data", "features.json")
+logsFile = path.join(currentDir, "..", "data", "logs.db")
+personasFile = path.join(currentDir, "..", "data", "personas.json")
+
+
+def main():
+    configData = readJson(configFile)
+    featuresData = readJson(featuresFile)
+    personas = readJson(personasFile)["personas"]
+
+    config = Config(**configData)
     console.print(
-        "Welcome to Twitch AI Chatbot app! Enter 'help' for a list of commands."
+        f"Token: {config.token if config.token else 'None'}, Username: {config.username if config.username else 'None'}, Channels: {config.channels if config.channels else 'None'}",
     )
 
-
-@the_shell.command()
-def start() -> None:
-    """
-    Starts the bot in a new terminal window, but also checks for valid credentials
-    """
-    pass
-
-
-@the_shell.command()
-def creds() -> None:
-    """
-    Allows user to configure the bot's credentials
-    """
+    features = Features(**featuresData)
     console.print(
-        md(
-            "You can get your token [here](https://twitchtokengenerator.com/). Select `Bot Chat Token` and then copy `Access Token` value"
-        )
+        f"Delay: {features.delay if features.delay else 'None'}, Memory: {'Yes' if features.memory else 'No'}, Persona: {features.persona if features.persona else 'None'}, Logging: {'Yes' if features.logging else 'No'}, Model: {features.model.upper() if features.model else 'None'}",
     )
 
-
-@the_shell.command()
-def feats() -> None:
-    """
-    Allows user to toggle the bot's features on/off
-    """
-    pass
-
-
-@the_shell.command()
-def logs() -> None:
-    """
-    View the bot's logs
-    """
-    pass
-
-
-@the_shell.command()
-def help() -> None:
-    console.print(
-        md(
-            """
-Here is a list of available commands:
-
-- start: Start the bot
-- creds: Configure the bot
-- feats: Toggle bot's features
-- logs: View the bot's logs
-- help: Show this help message
-- quit: Exit the shell
-"""
-        )
-    )
+    console.print(personas["Darth Vader"])
 
 
 if __name__ == "__main__":
-    the_shell()
+    main()

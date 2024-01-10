@@ -1,5 +1,7 @@
 {
-  "memory": true,
-  "logging": true,
-  "autostart": false
+  "delay": 0,
+  "memory": false,
+  "persona": "",
+  "logging": false,
+  "model": "gpt3"
 }
