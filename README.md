@@ -3,7 +3,11 @@
 <a name="readme-top"></a>
 
 <div align="center">
-<h1 align="center">Twitch AI Chathatbot</h1>
+  <a href="https://github.com/seesmof/twitch-ai-chatbot">
+    <img src="./public/logo.png" alt="Logo" height="80">
+  </a>
+
+<h1 align="center">Twitch AI Chatbot</h1>
 </div>
 
 ## Table of contents
