@@ -1,6 +1,6 @@
-<a name="readme-top"></a>
+[**Інструкція Українською**](./docs/README_UA.md)
 
-<a href="./README_Ukrainian.md"><strong>Інструкція Українською</strong></a>
+<a name="readme-top"></a>
 
 <div align="center">
 <h1 align="center">Twitch AI Chathatbot</h1>
@@ -55,7 +55,7 @@ pip install -r requirements.txt
 
 3. Visit the [link](https://twitchtokengenerator.com/), select the `Bot Chat Token` option when prompted, and copy the `Access Token` value.
 
-4. Follow [these instructions](./more_on_vars.md) to set up the necessary variables.
+4. Follow [these instructions](./docs/variables/more_on_vars.md) to set up the necessary variables.
 
 5. Run the bot using the following command:
 
