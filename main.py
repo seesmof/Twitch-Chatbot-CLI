@@ -1,48 +1,75 @@
 from twitchio.ext import commands
-import twitchio
+from rich.console import Console
+from rich.traceback import install
+
+install()
+console = Console()
+
 from mfs import *
 
 
 class Bot(commands.Bot):
-    def __init__(self):
+    def __init__(self, token: str = None, prefix: str = "!", channels: [str] = []):
         super().__init__(
-            token=TOKEN,
-            prefix="!",
-            initial_channels=WANTED_CHANNELS,
+            token=token,
+            prefix=prefix,
+            initial_channels=channels,
         )
-        self.lock = asyncio.Lock()
+        self.prompt: str = None
+        self.messages: [dict] = [
+            {
+                "role": "system",
+                "content": "Answer as briefly as you possibly can",
+            }
+        ]
 
     async def event_ready(self):
-        print(f"Logged in as | {self.nick}")
-        print(f"User id is | {self.user_id}")
+        console.log(f"Bot started as '{self.nick}'")
 
     async def event_message(self, message):
+        if message.echo:
+            return
+
+        if message.content.startswith("!ai") or message.content.startswith(
+            f"@{self.nick}"
+        ):
+            givenPrompt: str = (
+                message.content.split(" ", 1)[1] if " " in message.content else None
+            )
+            self.prompt = givenPrompt if givenPrompt else None
+            console.log(f"{message.author.name} asked: {self.prompt}")
+
         try:
-            async with self.lock:
-                if message.author.name == BOT_NICK:
-                    return
-
-                if BOT_NICK in message.content:
-                    output_text = clean_text(AI(message.content))
-
-                    print(
-                        f"\nPROMPT: {message.content} by {message.author.name} at {message.channel.name}\n\nRESPONSE: {output_text}\n"
-                    )
-                    if LOGGING:
-                        write_to_log(
-                            message.content,
-                            message.author.name,
-                            message.channel.name,
-                            output_text,
-                        )
-
-                    split_text = split_long_gpt(output_text)
-                    for substr in split_text:
-                        await message.channel.send(f"{substr} @{message.author.name}")
-                        await asyncio.sleep(DELAY)
-        except Exception as e:
+            await self.handle_commands(message)
+        except AttributeError:
             pass
 
+    @commands.cooldown(rate=1, per=5, bucket=commands.Bucket.user)
+    @commands.command(aliases=["ai"])
+    async def processPrompt(self, ctx: commands.Context):
+        if self.prompt:
+            response = generateResponse(self.prompt, self.messages)
 
+            """
+            if logging:
+                write to logs
+            """
+
+            partitionedText = splitMessage(response)
+            for text in partitionedText:
+                await ctx.channel.send(f"{text} @{ctx.author.name}")
+
+        else:
+            console.log(
+                f"[red]Failed to generate message from {ctx.author.name} in {ctx.channel.name}[/]"
+            )
+
+    async def event_command_error(
+        self, context: commands.Context, error: Exception
+    ) -> None:
+        pass
+
+
+# TODO load config and features from files, check if config is empty and if so prompt to enter values that are missing
 bot = Bot()
 bot.run()
