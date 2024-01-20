@@ -1,5 +1,10 @@
-import re
 import g4f
+
+from rich.console import Console
+from rich.traceback import install
+
+install()
+console = Console()
 
 
 def generateResponse(prompt: str, memory: [dict]) -> str:
@@ -7,31 +12,14 @@ def generateResponse(prompt: str, memory: [dict]) -> str:
     memory.append(currentQuery)
 
     response = g4f.ChatCompletion.create(
-        model=g4f.models.default,
+        model=g4f.models.gpt_35_turbo,
         messages=memory,
         stream=False,
-        timeout=5,
     )
     responseDict = {"role": "assistant", "content": response}
     memory.append(responseDict)
 
-    return cleanText(response)
-
-
-def cleanText(text: str, nickname: str) -> str:
-    text = re.sub(r"http\S+", "", text)
-    text = re.sub(r"www\S+", "", text)
-    text = re.sub(r"\[.*?\]", "", text)
-    text = re.sub(r"\".*?\"", "", text)
-    text = re.sub(r"\*", "", text)
-    text = text.replace("\n", " ")
-    text = text.replace("user: ", "", flags=re.I)
-    text = text.replace("system: ", "", flags=re.I)
-    text = text.replace("assistant: ", "", flags=re.I)
-    text = text.replace(" : ", "")
-    text = text.replace(nickname, "")
-    text = text.replace("@", "")
-    return text
+    return response
 
 
 def splitMessage(response: str) -> [str]:

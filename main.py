@@ -17,10 +17,7 @@ class Bot(commands.Bot):
         )
         self.prompt: str = None
         self.messages: [dict] = [
-            {
-                "role": "system",
-                "content": "Answer as briefly as you possibly can",
-            }
+            {"role": "system", "content": "Answer as briefly as possible."}
         ]
 
     async def event_ready(self):
@@ -30,9 +27,7 @@ class Bot(commands.Bot):
         if message.echo:
             return
 
-        if message.content.startswith("!ai") or message.content.startswith(
-            f"@{self.nick}"
-        ):
+        if message.content.startswith("!ai"):
             givenPrompt: str = (
                 message.content.split(" ", 1)[1] if " " in message.content else None
             )
@@ -48,14 +43,17 @@ class Bot(commands.Bot):
     @commands.command(aliases=["ai"])
     async def processPrompt(self, ctx: commands.Context):
         if self.prompt:
-            response = generateResponse(self.prompt, self.messages)
+            with console.status("Generating response..."):
+                response = generateResponse(self.prompt, self.messages)
 
             """
             if logging:
                 write to logs
             """
 
-            partitionedText = splitMessage(response)
+            partitionedText = (
+                splitMessage(response) if len(response) > 440 else [response]
+            )
             for text in partitionedText:
                 await ctx.channel.send(f"{text} @{ctx.author.name}")
 
